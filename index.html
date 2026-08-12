@@ -1,0 +1,1649 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>00 and boss zhu 法国·瑞士·意大利旅行攻略</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>:root{--primary:#174a5b;--bg:#faf7f2;--surface:#fff;--line:#d8e2e5;--muted:#55707a}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:#123746;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65}.guide-page{max-width:1120px;margin:auto}.hero{padding:clamp(2.5rem,8vw,6rem) clamp(1rem,4vw,2rem);background:linear-gradient(135deg,#e9f4f2,#f9efe4)}h1,h2{font-family:Georgia,"Noto Serif SC",serif}.hero h1{font-size:clamp(2rem,7vw,4.5rem);line-height:1.08;margin:.2em 0}.hero-meta{display:flex;flex-wrap:wrap;gap:.5rem}.hero-meta span,.route-summary{padding:.5rem .75rem;border-radius:999px;background:#ffffffb8}.card{min-width:0;max-width:100%;margin:1rem 0;padding:1rem;border:1px solid var(--line);border-radius:16px;background:var(--surface)}.table-wrap{max-width:100%;overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:.7rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.timeline,.step-list{padding:0;list-style:none}.slot{display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:1rem;padding:1rem 0;border-bottom:1px dashed var(--line)}.slot-time{font-weight:800}.day-notes{display:grid;grid-template-columns:1fr;gap:.8rem}.itinerary-filters{display:flex;gap:.5rem;overflow-x:auto;padding:.25rem 0 .75rem}.itinerary-filters button{min-height:44px;flex:0 0 auto;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--primary);font:inherit;font-weight:700;padding:.45rem .85rem;cursor:pointer}.itinerary-filters button[aria-pressed="true"]{background:var(--primary);border-color:var(--primary);color:#fff}.copy-target{border:0;padding:0;color:var(--primary);background:none;font:inherit;font-weight:700;text-align:left;cursor:pointer}.source-ref{font-size:.78em;vertical-align:super}.route-time-label span{display:block;white-space:nowrap;padding:4px 8px;border:1px solid #9fb7c2;border-radius:999px;background:#fff;font-weight:700}.route-arrow span{display:block;color:#174a5b;font-size:22px}.local-note{color:var(--muted);font-size:.86rem}@media(min-width:900px){.day-notes{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:520px){.slot{grid-template-columns:1fr}.hero-meta{display:grid}table{min-width:620px}}
+.day header .day-label{display:flex;align-items:baseline;gap:.55rem;line-height:1.35}.day header .day-label small{color:var(--muted);font-size:.9em}.day header h3{margin:.55rem 0 .35rem;line-height:1.35}.day header p{margin:.2rem 0 0;line-height:1.45}.day>p{margin:.7rem 0;line-height:1.5}.timeline{margin:.25rem 0 .5rem}.slot{gap:.75rem;padding:.6rem 0}.slot h4{margin:0 0 .2rem;line-height:1.35}.slot p{margin:.25rem 0;line-height:1.5}.day-notes{margin-top:.45rem}.day-notes h4{margin:.15rem 0}.day-notes ul{margin:.25rem 0;padding-left:1.15rem}.day-notes li{line-height:1.5}table{line-height:1.45}th,td{padding:.45rem .55rem;line-height:1.45}.card.table-wrap{padding:.7rem}.source-list{padding-left:1.6rem}.source-list li{padding:.3rem 0;line-height:1.45}.source-list li span{display:block;color:var(--muted);font-size:.92em}
+/* travel-guide-interactions.css: v8 */
+.source-flash { animation: source-flash 2s ease-out; }
+.guide-search-trigger { position: fixed; right: max(14px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 2400; min-width: 46px; min-height: 46px; border: 0; border-radius: 999px; padding: 10px 15px; color: #fff; background: #075966; box-shadow: 0 8px 24px #123b5238; font: inherit; font-weight: 800; cursor: pointer; }
+.guide-search-panel { position: fixed; right: max(14px, env(safe-area-inset-right)); bottom: calc(max(18px, env(safe-area-inset-bottom)) + 58px); z-index: 2500; width: min(448px, calc(100vw - 28px)); max-height: min(68dvh, 560px); overflow: auto; border: 1px solid #c7d9d8; border-radius: 20px; color: #24444b; background: rgba(252, 255, 253, .97); box-shadow: 0 18px 50px #123b5240; }
+.guide-search-panel[hidden] { display: none; }
+.guide-search-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; padding: 14px 16px; border-bottom: 1px solid #dfe9e6; }
+.guide-search-head strong { color: #252221; font-family: var(--guide-display-font, Georgia, serif); font-size: 18px; }
+.guide-search-close { flex: 0 0 auto; width: 38px; height: 38px; border: 1px solid #cce0de; border-radius: 12px; color: #075966; background: #f5fbf9; font-size: 22px; line-height: 1; cursor: pointer; }
+.guide-search-form { display: grid; grid-template-columns: minmax(150px, 1fr) auto auto auto; align-items: center; gap: 8px; padding: 12px; border-bottom: 1px solid #dfe9e6; }
+.guide-search-form input[type="search"], #guide-search-input { min-width: 0; min-height: 42px; border: 1px solid #0b7d82; border-radius: 11px; padding: 8px 11px; color: #24444b; background: #fff; font: inherit; outline: none; box-shadow: 0 0 0 3px rgba(11, 125, 130, .08); }
+.guide-search-form input[type="search"]:focus, #guide-search-input:focus { border-color: #006d75; box-shadow: 0 0 0 3px rgba(0, 109, 117, .14); }
+.guide-search-clear { min-height: 42px; border: 0; padding: 6px 3px; color: #68868b; background: transparent; font: inherit; cursor: pointer; }
+.guide-search-submit, .guide-search-advanced { min-height: 42px; border: 0; border-radius: 11px; padding: 8px 13px; color: #fff; background: #087b80; font: inherit; font-weight: 800; white-space: nowrap; cursor: pointer; box-shadow: 0 5px 13px rgba(7, 89, 102, .18); }
+.guide-search-submit:disabled, .guide-search-advanced:disabled { cursor: not-allowed; opacity: .48; box-shadow: none; }
+.guide-search-navigation { display: flex; align-items: center; justify-content: center; gap: 14px; min-height: 54px; padding: 8px 12px; border-bottom: 1px solid #e6efec; background: rgba(245, 251, 248, .72); }
+.guide-search-navigation button { min-width: 62px; min-height: 30px; border: 1px solid #c7ddda; border-radius: 9px; padding: 4px 9px; color: #345e65; background: #fff; font: inherit; cursor: pointer; }
+.guide-search-navigation button:disabled { cursor: not-allowed; opacity: .46; }
+.guide-search-navigation span { min-width: 48px; color: #607d82; text-align: center; font-variant-numeric: tabular-nums; }
+.guide-search-hit { background: #ffe58a; border-radius: 3px; }
+.guide-search-hit.is-current { background: #ff9f43; box-shadow: 0 0 0 2px #d66b1b66; }
+.guide-search-results { padding: 10px 12px 14px; }
+.guide-search-result { margin: 8px 0; padding: 10px; border: 1px solid #d4e3e0; border-radius: 10px; background: #fff; }
+.guide-search-result strong, .guide-search-result small { display: block; }
+.guide-search-result a { display: inline-flex; min-height: 36px; align-items: center; margin-top: 7px; color: #086c75; font-weight: 800; }
+.guide-search-result small, .guide-search-hint, .guide-search-empty { display: block; margin: 6px 0; color: #567276; }
+.guide-search-hint span { display: block; }
+@keyframes source-flash { 0%, 70% { background: #ffe58a; } 100% { background: transparent; } }
+@media (max-width: 520px) { .guide-search-form { grid-template-columns: minmax(0, 1fr) auto; } .guide-search-form input[type="search"] { grid-column: 1 / -1; } .guide-search-clear { justify-self: start; } .guide-search-submit, .guide-search-advanced { width: 100%; padding-inline: 10px; } }
+.guide-toast { position: fixed; z-index: 3200; left: 50%; bottom: 24px; transform: translate(-50%, 20px); padding: 9px 14px; border-radius: 999px; color: #fff; background: #123f4b; box-shadow: 0 6px 24px #0004; opacity: 0; pointer-events: none; transition: .2s; }
+.guide-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+.copyable-name { cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.copyable-name:focus-visible { outline: 2px solid #0b789c; outline-offset: 2px; }
+.is-complete { color: #8a9ba7; }
+.is-complete > span, .is-complete > label { text-decoration: line-through; }
+.travel-image-dialog { max-width: min(1200px, 96vw); max-height: 92vh; padding: 0; border: 0; border-radius: 12px; background: transparent; }
+.travel-image-dialog::backdrop { background: #071c2de8; }
+.travel-image-dialog img { display: block; max-width: 96vw; max-height: 88vh; border-radius: 12px; }
+.travel-image-dialog button { position: fixed; top: 18px; right: 20px; width: 42px; height: 42px; border: 1px solid #ffffff77; border-radius: 50%; color: #fff; background: #0d3149; font-size: 24px; }
+html { scroll-behavior: smooth; }
+[data-nav-label][id] { scroll-margin-top: var(--guide-nav-offset, 76px); }
+.quick-nav { position: sticky; top: max(4px, env(safe-area-inset-top)); z-index: 1100; display: flex; gap: 7px; margin: 12px 0 18px; padding: 8px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x proximity; border: 1px solid var(--guide-nav-border, #cfe0e8); border-radius: 14px; background: var(--guide-nav-bg, rgba(248, 252, 253, .92)); box-shadow: 0 5px 18px rgba(18, 59, 82, .08); scrollbar-width: none; }
+.quick-nav[hidden], .quick-nav:empty { display: none; }
+.quick-nav::-webkit-scrollbar { display: none; }
+.quick-nav a { flex: 0 0 auto; min-height: 40px; display: inline-flex; align-items: center; scroll-snap-align: center; border-radius: 999px; padding: 6px 10px; color: var(--guide-nav-text, #174e6c); background: #fff; text-decoration: none; font-size: 13px; font-weight: 700; white-space: nowrap; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+@media (hover: hover) { .quick-nav a:hover { background: var(--guide-nav-hover, #dff1f6); } } .quick-nav a:focus-visible { background: var(--guide-nav-hover, #dff1f6); outline: 2px solid var(--guide-nav-focus, #55a5be); outline-offset: 1px; }
+.quick-nav a.is-active { color: var(--guide-nav-active-text, #fff); background: var(--guide-nav-active, #0b789c); }
+@supports (backdrop-filter: blur(10px)) { .quick-nav { backdrop-filter: blur(10px); } }
+@media (max-width: 640px) { .quick-nav { margin-inline: -2px; padding: 7px; touch-action: pan-x pan-y; } .quick-nav a { min-height: 44px; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .quick-nav { scroll-behavior: auto; } }
+:root {
+  --guide-primary: #B99274;
+  --guide-nav-bg: rgba(248, 252, 253, .92);
+  --guide-nav-text: #174e6c;
+  --guide-nav-active: var(--guide-primary);
+  --guide-nav-active-text: #fff;
+  --guide-nav-hover: #dff1f6;
+  --guide-nav-border: var(--guide-line);
+  --guide-nav-focus: #55a5be;
+  --guide-bg: #faf7f2;
+  --guide-surface: rgba(255, 255, 255, .76);
+  --guide-text: #2f2924;
+  --guide-muted: #746b63;
+  --guide-line: #e5ddd5;
+  --guide-display-font: Georgia, "Songti SC", "Noto Serif SC", serif;
+  --guide-body-font: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+.guide-page { color: var(--guide-text); background: var(--guide-bg); font-family: var(--guide-body-font); }
+.guide-display, .guide-page h1, .guide-page h2 { font-family: var(--guide-display-font); }
+.guide-section { padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 3vw, 1.5rem); }
+.guide-section, [data-guide-module] { container-type: inline-size; }
+.guide-adaptive-pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1rem, 3vw, 1.5rem); }
+.guide-adaptive-pair > * { min-width: 0; max-width: 100%; }
+@container (min-width: 960px) { .guide-adaptive-pair[data-guide-wide-layout="verified"] { grid-template-columns: minmax(0, 1.1fr) minmax(340px, .9fr); align-items: start; } }
+.guide-elevated-card { border: 1px solid var(--guide-line); border-radius: 16px; background: var(--guide-surface); box-shadow: 0 8px 24px rgba(63, 47, 35, .08); }
+@supports (backdrop-filter: blur(10px)) { .guide-elevated-card { backdrop-filter: blur(10px); } }
+@media (hover: hover) { .guide-elevated-card { transition: transform .2s ease, box-shadow .2s ease; } .guide-elevated-card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(63, 47, 35, .13); } }
+.guide-photo-frame { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 12px; background: #eee7df; }
+.guide-photo-frame > img { width: 100%; height: 100%; object-fit: cover; }
+.guide-reference-image { display: block; max-width: 100%; max-height: none; object-fit: contain; }
+
+.guide-checklist-tools button, .guide-checklist-remove { min-height: 44px; border: 1px solid #b9ccc9; border-radius: 8px; padding: 6px 10px; color: #174d49; background: #f1f8f7; }
+.guide-checklist-add input { min-width: 0; flex: 1; min-height: 36px; border: 1px solid #90aba8; border-radius: 8px; padding: 7px 9px; }
+.guide-checklist-item { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.guide-checklist-item [data-check-label][contenteditable="true"] { flex: 1; border-bottom: 1px dashed #90aba8; outline: none; }
+.guide-checklist-remove { display: none; margin-left: auto; color: #9a4d3f; }
+[data-checklist].is-editing .guide-checklist-remove { display: inline-block; }
+@media (max-width: 640px) { .guide-checklist-item { align-items: flex-start; } }
+/* Checklist shell with embedded T-7 weather card. */
+.guide-checklist-shell, [data-guide-module="checklist"] [data-checklist] { padding: clamp(1rem, 2vw, 1.25rem); border: 1px solid var(--guide-line); border-radius: 16px; background: var(--guide-surface); }
+.guide-checklist-tools { display: grid; grid-template-columns: auto minmax(220px, 1fr); align-items: center; gap: 8px; margin-bottom: 12px; }
+.guide-checklist-add { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.guide-checklist-group { padding-block: 8px; border-bottom: 1px dashed var(--guide-line); }
+.guide-checklist-group:last-of-type { border-bottom: 0; }
+.guide-checklist-group h3 { margin: 0 0 8px; font-size: 1rem; }
+.guide-checklist-note { margin-top: 12px; padding: 10px 12px; border-radius: 8px; color: var(--guide-muted); background: #f5f7f6; background: color-mix(in srgb, var(--guide-primary) 7%, white); font-size: .88rem; }
+.guide-weather-card { margin-top: 16px; padding: clamp(.9rem, 2vw, 1.1rem); border: 1px solid color-mix(in srgb, var(--guide-primary) 32%, var(--guide-line)); border-radius: 14px; background: #f6faf8; background: color-mix(in srgb, var(--guide-primary) 5%, white); }
+.guide-weather-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.guide-weather-card__head h3 { margin: 0 0 6px; }
+.guide-weather-card__head p, .guide-weather-meta { margin: 0; color: var(--guide-muted); font-size: .9rem; }
+[data-weather-refresh] { flex: 0 0 auto; min-height: 40px; border: 0; border-radius: 9px; padding: 8px 12px; color: #fff; background: #123f4b; font-weight: 700; cursor: pointer; }
+[data-weather-refresh]:disabled { cursor: not-allowed; opacity: .55; }
+.guide-weather-table-wrap { margin-top: 12px; overflow-x: auto; border: 1px solid var(--guide-line); border-radius: 10px; background: #fff; }
+.guide-weather-table { width: 100%; min-width: 680px; border-collapse: collapse; }
+.guide-weather-table th, .guide-weather-table td { padding: 9px 10px; border-bottom: 1px solid var(--guide-line); text-align: left; vertical-align: top; }
+.guide-weather-table th { background: #eef5f3; background: color-mix(in srgb, var(--guide-primary) 10%, white); white-space: nowrap; }
+.guide-weather-table tr:last-child td { border-bottom: 0; }
+@media (max-width: 640px) { .guide-checklist-tools { grid-template-columns: 1fr; } .guide-checklist-add { grid-template-columns: minmax(0, 1fr) auto; } .guide-weather-card__head { flex-direction: column; } [data-weather-refresh] { align-self: flex-end; } }
+/* Unified exchange card; legacy class aliases remain compatible. */
+.exchange-tool-card, .exchange-card { container-type: inline-size; margin-top: 16px; padding: 17px; border: 1px solid #c8e0d9; border-radius: 16px; background: linear-gradient(145deg, #eff8f3, #fff); }
+.exchange-tool-card__head, .exchange-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.exchange-tool-card__head h3, .exchange-head h3 { margin: 0 0 5px; color: #11324d; font-size: 18px; }
+.exchange-tool-card__head p, .exchange-head p { margin: 0; color: #58748b; }
+[data-exchange-refresh], .exchange-refresh { flex: 0 0 auto; border: 1px solid #123f4b; border-radius: 9px; padding: 8px 11px; background: #123f4b; color: #fff; font-weight: 800; cursor: pointer; }
+[data-exchange-refresh]:disabled, .exchange-refresh:disabled { cursor: wait; opacity: .65; }
+.exchange-tool-card__rates, .exchange-values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+.exchange-tool-card__rates > div, .exchange-values > div { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 8px; padding: 10px 11px; border: 1px solid #d9e5eb; border-radius: 10px; background: #fff; }
+.exchange-tool-card__rates strong, .exchange-values strong { text-align: right; font-size: 16px; }
+.exchange-tool-card__convert, .exchange-converter { display: grid; grid-template-columns: auto minmax(130px, 1fr) minmax(0, 1fr); gap: 10px; align-items: center; margin-top: 12px; }
+.exchange-tool-card__convert label, .exchange-converter label { font-weight: 700; }
+.exchange-tool-card__convert input, .exchange-converter input { min-width: 0; padding: 9px; border: 1px solid #90aba8; border-radius: 8px; font: inherit; }
+.exchange-tool-card__results, .exchange-result-list { display: grid; gap: 6px; }
+.exchange-tool-card__result-row, .exchange-result-row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 9px; border-radius: 8px; background: #fff; }
+.exchange-tool-card__result, .exchange-result-row output { font-weight: 800; text-align: right; }
+[data-exchange-status], .exchange-status { margin: 12px 0 0; color: #58748b; font-size: 13px; }
+@media (max-width: 640px) { .exchange-tool-card__rates, .exchange-values { grid-template-columns: 1fr; } .exchange-tool-card__convert, .exchange-converter { grid-template-columns: 1fr; } .exchange-tool-card__results, .exchange-result-list { width: 100%; } }
+@container (max-width: 480px) { .exchange-tool-card__rates, .exchange-values { grid-template-columns: 1fr; } .exchange-tool-card__convert, .exchange-converter { grid-template-columns: 1fr; } .exchange-tool-card__results, .exchange-result-list { width: 100%; } }
+
+/* T-7 weather forecast and conditional rain-prayer overlay. */
+.guide-weather-card { overflow: hidden; }
+.guide-weather-status-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 9px; }
+.guide-weather-pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 9px; color: #12605e; background: #dff1ee; font-size: 12px; font-weight: 700; }
+.guide-weather-pill.is-waiting { color: #8a5a11; background: #fff7e7; }
+.guide-weather-status { margin: 12px 0 0; padding: 11px 12px; border-radius: 9px; color: #315f75; background: #f8fcfd; }
+.guide-weather-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 14px; margin-top: 14px; }
+.guide-weather-location { overflow: hidden; border: 1px solid var(--guide-line); border-radius: 13px; background: #fff; }
+.guide-weather-location h4 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 0; padding: 13px 14px; color: #163e57; background: #eef7fa; font-size: 17px; }
+.guide-weather-location h4 small { color: var(--guide-muted); font-size: 12px; font-weight: 600; }
+.guide-weather-location-error { margin: 0; padding: 16px 14px; color: #943b3b; background: #fff8f7; }
+.guide-weather-location .guide-weather-table { min-width: 720px; font-size: 13px; }
+.guide-weather-location .guide-weather-table td.weather,
+.guide-weather-location .guide-weather-table td.metric,
+.guide-weather-location .guide-weather-table td.key { white-space: normal; }
+.guide-weather-location .guide-weather-table td.key { min-width: 140px; }
+.guide-weather-chip { display: inline-flex; align-items: center; margin: 0 4px 4px 0; border-radius: 999px; padding: 3px 7px; color: #285a6c; background: #eaf5f7; font-size: 12px; font-weight: 700; }
+.guide-weather-chip.warn { color: #86560b; background: #fff2d4; }
+.guide-weather-chip.risk { color: #943b3b; background: #fff0ef; }
+.guide-weather-chip.good { color: #17604d; background: #e5f5ed; }
+.guide-weather-footer { display: flex; flex-wrap: wrap; gap: 7px 18px; margin-top: 13px; color: var(--guide-muted); font-size: 12px; }
+.guide-rain-easter-egg { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed var(--guide-line); color: #426579; font-size: 13px; }
+.guide-rain-easter-egg a { color: #0c5d74; font-weight: 800; text-underline-offset: 3px; }
+.guide-rain-prayer-modal { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 16px; background: rgba(4, 23, 35, .62); backdrop-filter: blur(5px); }
+.guide-rain-prayer-modal[hidden] { display: none; }
+.guide-rain-prayer-panel { position: relative; width: min(430px, 100%); height: min(760px, calc(100dvh - 32px)); overflow: hidden; border: 1px solid rgba(255, 255, 255, .55); border-radius: 22px; background: #2b3a42; box-shadow: 0 24px 60px rgba(0, 0, 0, .35); }
+.guide-rain-prayer-panel iframe { display: block; width: 100%; height: 100%; border: 0; }
+.guide-rain-prayer-close { position: absolute; z-index: 2; top: 12px; right: 12px; min-height: 36px; border: 0; border-radius: 9px; padding: 0 12px; color: #fff; background: rgba(12, 50, 67, .88); font-weight: 700; cursor: pointer; box-shadow: 0 3px 9px rgba(0, 0, 0, .2); }
+.guide-rain-prayer-close[hidden] { display: none; }
+@media (max-width: 640px) {
+  .guide-weather-grid { grid-template-columns: 1fr; }
+  .guide-weather-footer { display: grid; }
+}
+
+/* Mobile browsers may zoom focused inputs below 16px; keep the global search input at 16px. */
+@media (max-width: 720px), (hover: none) and (pointer: coarse) { .guide-search-form input[type="search"], #guide-search-input { font-size: 16px; line-height: 1.35; } }
+
+/* Compact mobile search sheet: preserve context instead of occupying the viewport. */
+@media (max-width: 720px) {
+  .guide-search-panel { right: 10px; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 58px); width: calc(100vw - 20px); max-height: min(64dvh, 520px); border-radius: 18px; }
+  .guide-search-trigger { right: 10px; bottom: max(14px, env(safe-area-inset-bottom)); }
+  .guide-search-form input[type="search"], #guide-search-input { min-height: 44px; font-size: 16px; }
+}
+
+/* Fixed-width itinerary date cycle inside the sticky quick navigation. */
+.quick-nav a.guide-itinerary-cycle { inline-size: var(--guide-itinerary-cycle-width); max-inline-size: var(--guide-itinerary-cycle-width); overflow: hidden; }
+.guide-itinerary-cycle__track { display: block; min-width: max-content; transform: translateX(0); will-change: transform; }
+.guide-itinerary-cycle__track.is-running { animation: guide-itinerary-nav-marquee 2s linear infinite; }
+.guide-itinerary-cycle__track.is-running.is-final-cycle { animation-iteration-count: 1; animation-fill-mode: forwards; }
+.day[id] { scroll-margin-top: var(--guide-nav-offset, 76px); }
+@keyframes guide-itinerary-nav-marquee { 0%, 14% { transform: translateX(0); } 84%, 100% { transform: translateX(var(--guide-itinerary-marquee-shift, 0px)); } }
+@media (prefers-reduced-motion: reduce) { .guide-itinerary-cycle__track.is-running { animation: none; } }
+/* Long-press date picker for the itinerary quick-navigation item. */
+.quick-nav a.guide-itinerary-cycle.is-pressing { transform: scale(.97); }
+.quick-nav a.guide-itinerary-cycle.is-long-press-open { color: #fff; background: var(--guide-nav-active, #0b789c); }
+.guide-itinerary-date-menu[hidden] { display: none; }
+.guide-itinerary-date-menu { position: fixed; z-index: 1800; display: grid; gap: 3px; max-height: min(360px, 60dvh); overflow-y: auto; overscroll-behavior: contain; padding: 7px; border: 1px solid color-mix(in srgb, var(--guide-nav-active, #0b789c) 28%, white); border-radius: 14px; background: rgba(255, 255, 255, .98); box-shadow: 0 16px 38px rgba(18, 59, 82, .22); backdrop-filter: blur(12px); }
+.guide-itinerary-date-option { width: 100%; min-height: 44px; border: 0; border-radius: 9px; padding: 8px 12px; color: var(--guide-nav-text, #174e6c); background: transparent; text-align: left; font: inherit; font-weight: 700; cursor: pointer; }
+.guide-itinerary-date-option:hover, .guide-itinerary-date-option:focus-visible { color: #0b607f; background: #e8f5f8; outline: 2px solid #8dc9d7; outline-offset: -2px; }
+.guide-itinerary-date-option.is-current { color: #fff; background: var(--guide-nav-active, #0b789c); }
+@media (prefers-reduced-motion: reduce) { .quick-nav a.guide-itinerary-cycle.is-pressing { transform: none; } }
+</style></head><body class="guide-page" data-guide-mode="full" data-guide-features="arrival exchange weather-refresh source-index itinerary-filter" data-trip-start="2026-09-24" data-trip-end="2026-10-07"><header class="hero" data-guide-module="hero"><p>法国、瑞士、意大利（经阿联酋、泰国返港）</p><h1>00 and boss zhu 法国·瑞士·意大利旅行攻略</h1><p>以已购票务为锚点；巴黎慢游、瑞士天气机动、米兰收尾。所有实时班次与开放信息请在出发前复核。</p><div class="hero-meta"><span>2026.09.24—10.07｜14 天｜法国 → 瑞士 → 意大利 → 香港</span><span>2 人</span><span>人民币估算；不含价格未提供的国际机票与住宿</span></div><p><strong>巴黎 5 晚 → 格林德瓦 2 晚 → 采尔马特 2 晚 → 米兰 2 晚；将瑞士山区第 9 天留给晴天窗口。</strong></p></header><nav class="quick-nav" data-quick-nav aria-label="页面快速导航"></nav><main><section class="guide-section" data-guide-module="arrival" id="arrival" data-nav-label="到达/离开"><h2>到达 / 离开</h2><h3>到达</h3><ol class="step-list"><li class="card"><strong>9 月 24 日 20:00 抵达巴黎戴高乐机场</strong><p>按航班实际抵达后完成入境、取行李并前往已订酒店；当晚只安排补给与休息。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-9" aria-label="查看来源 9">[9]</a><a class="source-ref" href="#source-21" aria-label="查看来源 21">[21]</a><a class="source-ref" href="#source-22" aria-label="查看来源 22">[22]</a><a class="source-ref" href="#source-23" aria-label="查看来源 23">[23]</a></p><p><b>取舍：</b>跨两段长航程，不再叠加市区景点，保障次日卢浮宫预约。</p><p><b>风险／替代：</b>RER B 与机场巴士各有游客经验；根据实时官方指引、航站楼、行李和体力选择，延误时优先正规出租车。</p></li><li class="card"><strong>9 月 29 日巴黎 → 巴塞尔 → 格林德瓦</strong><p>携已购巴黎里昂站—Basel SBB 09:26–13:23 车票；到 Basel 后按 SBB 当日班次换乘前往格林德瓦。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a></p><p><b>取舍：</b>已购跨境段为当日硬约束，后段保持弹性以应对换乘与行李。</p><p><b>风险／替代：</b>若前段晚点，使用 SBB App 查询下一班；抵达格林德瓦后只安排采购与散步。</p></li><li class="card"><strong>10 月 6–7 日米兰 → 迪拜 → 曼谷 → 香港</strong><p>10 月 6 日 11:30 米兰起飞；迪拜转机 22:30，10 月 7 日 08:00 抵曼谷、14:15 再飞香港。每段均以订单和航司 App 为准。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></p><p><b>取舍：</b>多段国际转机，需预留安检、登机口变动与入境／行李规则核验时间。</p><p><b>风险／替代：</b>任一航段异常时先联系承运航司柜台；保留联程凭证与保险紧急电话。</p></li></ol><h3>离开</h3><ol class="step-list"><li class="card"><strong>10 月 5 日晚</strong><p>完成线上值机条件、护照和下一日机场交通的核验；重要物品、退税材料与充电设备分开放置。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></p><p><b>取舍：</b>米兰为最后一个落地城市，离境前整理可避免转机日遗漏。</p><p><b>风险／替代：</b>若线上值机不可用，提前到机场人工柜台办理，不临近关柜才出发。</p></li><li class="card"><strong>10 月 6 日早</strong><p>按航司要求预留到达米兰机场的时间；以酒店位置和出发机场为准选择火车、机场巴士或正规出租车。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></p><p><b>取舍：</b>Excel 仅给出起飞时间，未给出机场与住宿地址，不能虚构固定接驳。</p><p><b>风险／替代：</b>前一晚保存机场航站楼、航司值机柜台和备用交通路线截图。</p></li><li class="card"><strong>迪拜、曼谷中转</strong><p>随身保管护照、登机牌与下一段签证／入境材料；查看航司 App 的实际登机口。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></p><p><b>取舍：</b>转机规则和登机口可能临时变化，不能以攻略中的静态信息替代。</p><p><b>风险／替代：</b>遇到衔接风险立即联系航司转机柜台并保留改签记录。</p></li></ol></section><section class="guide-section" data-guide-module="route-map" id="route-map-section" data-nav-label="路线地图"><h2>路线总览与动态地图</h2><p class="route-summary"><button type="button" class="copy-target" data-copy="深圳 / Shenzhen">深圳 / Shenzhen</button> → <button type="button" class="copy-target" data-copy="迪拜（去程） / Dubai">迪拜（去程） / Dubai</button> → <button type="button" class="copy-target" data-copy="巴黎 / Paris">巴黎 / Paris</button> → <button type="button" class="copy-target" data-copy="巴塞尔 / Basel">巴塞尔 / Basel</button> → <button type="button" class="copy-target" data-copy="格林德瓦 / Grindelwald">格林德瓦 / Grindelwald</button> → <button type="button" class="copy-target" data-copy="采尔马特 / Zermatt">采尔马特 / Zermatt</button> → <button type="button" class="copy-target" data-copy="米兰 / Milano">米兰 / Milano</button> → <button type="button" class="copy-target" data-copy="迪拜（返程） / Dubai">迪拜（返程） / Dubai</button> → <button type="button" class="copy-target" data-copy="曼谷 / Bangkok">曼谷 / Bangkok</button> → <button type="button" class="copy-target" data-copy="香港 / Hong Kong">香港 / Hong Kong</button></p><div class="route-map-wrap"><div id="route-map-loading" class="route-map-loading is-visible"></div><div id="route-map-status" class="route-map-status">正在加载动态地图</div><div id="route-map" class="route-map" aria-label="旅行路线动态地图"></div></div><style>/* travel-route-map.css: v3 */
+.route-map-wrap {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  background-color: #f3f7fa;
+  background-image:
+    linear-gradient(#dbe5ee 1px, transparent 1px),
+    linear-gradient(90deg, #dbe5ee 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.route-map {
+  position: relative;
+  z-index: 1;
+  min-height: 520px;
+}
+
+.route-map-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(110deg, transparent 30%, #ffffff66 45%, transparent 60%);
+  background-size: 220% 100%;
+  transition: opacity 0.25s ease;
+}
+
+.route-map-loading.is-visible {
+  opacity: 1;
+  animation: route-map-skeleton 1.4s linear infinite;
+}
+
+.route-map-loading.is-final-fallback {
+  opacity: 1;
+  background: transparent;
+  animation: none;
+}
+
+.route-map-status {
+  position: absolute;
+  z-index: 910;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 32px);
+  padding: 8px 12px;
+  border: 1px solid #cbd9e4;
+  border-radius: 999px;
+  color: #234;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 18px rgba(32, 62, 84, 0.12);
+  font-size: 13px;
+  text-align: center;
+}
+
+.leaflet-tile-pane .leaflet-layer {
+  transition: opacity 0.35s ease;
+}
+
+.route-time-label[hidden],
+.route-poi-detail[hidden] {
+  display: none !important;
+}
+
+@keyframes route-map-skeleton {
+  from { background-position: 200% 0; }
+  to { background-position: -20% 0; }
+}
+
+@media (max-width: 640px) {
+  .route-map-wrap,
+  .route-map {
+    min-height: 440px;
+  }
+}
+</style><script>/* travel-route-map: v3 */
+(function initTravelRouteMap(global) {
+  "use strict";
+
+  const REGION_CACHE_KEY = "travel-guide-region-v2";
+  const DEFAULT_REGION_TTL = 24 * 60 * 60 * 1000;
+
+  const DEFAULT_SOURCES = {
+    amap: {
+      name: "高德街道图",
+      url: "https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+      options: {
+        subdomains: ["1", "2", "3", "4"],
+        maxZoom: 18,
+        attribution: "&copy; 高德地图"
+      }
+    },
+    tencent: {
+      name: "腾讯街道图",
+      url: "https://rt.map.gtimg.com/tile?z={z}&x={x}&y={y}&type=vector&styleid=3",
+      options: {
+        maxZoom: 18,
+        attribution: "&copy; 腾讯地图"
+      }
+    },
+    carto: {
+      name: "CARTO Voyager",
+      url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+      options: {
+        subdomains: ["a", "b", "c", "d"],
+        maxZoom: 20,
+        attribution: "&copy; OpenStreetMap contributors &copy; CARTO"
+      }
+    },
+    osm: {
+      name: "OpenStreetMap",
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      options: {
+        subdomains: ["a", "b", "c"],
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors"
+      }
+    }
+  };
+
+  function readRegionCache(ttlMs) {
+    try {
+      const raw = sessionStorage.getItem(REGION_CACHE_KEY);
+      if (!raw) return null;
+      const item = JSON.parse(raw);
+      if (!item.cachedAt || Date.now() - item.cachedAt > ttlMs) return null;
+      return item.region === "CN" ? "CN" : "OVERSEAS";
+    } catch (_error) {
+      return null;
+    }
+  }
+
+  function writeRegionCache(region) {
+    try {
+      sessionStorage.setItem(REGION_CACHE_KEY, JSON.stringify({
+        region: region === "CN" ? "CN" : "OVERSEAS",
+        cachedAt: Date.now(),
+        version: 1
+      }));
+    } catch (_error) {
+      // Storage can be unavailable in privacy mode; map startup must continue.
+    }
+  }
+
+  async function detectVisitorRegion(options = {}) {
+    const ttlMs = options.ttlMs || DEFAULT_REGION_TTL;
+    const cached = readRegionCache(ttlMs);
+    if (cached) return cached;
+
+    let timeZone = "";
+    try {
+      timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    } catch (_error) {}
+
+    const chinaTimeZones = new Set([
+      "Asia/Shanghai",
+      "Asia/Chongqing",
+      "Asia/Harbin",
+      "Asia/Urumqi"
+    ]);
+    const language = String(navigator.language || "").toLowerCase();
+    const chinaOffset = new Date().getTimezoneOffset() === -480;
+    const likelyChina = chinaTimeZones.has(timeZone) ||
+      (!timeZone && language === "zh-cn" && chinaOffset);
+    const region = likelyChina ? "CN" : "OVERSEAS";
+    writeRegionCache(region);
+    return region;
+  }
+
+
+  async function resolveVisitorRegion(options = {}) {
+    if (typeof options.resolver !== "function") return null;
+    const timeoutMs = options.resolverTimeoutMs ?? 3000;
+    let timer = null;
+    try {
+      const timeout = new Promise((resolve) => { timer = global.setTimeout(() => resolve(null), timeoutMs); });
+      const resolved = await Promise.race([Promise.resolve(options.resolver()), timeout]);
+      if (resolved !== "CN" && resolved !== "OVERSEAS") return null;
+      writeRegionCache(resolved);
+      return resolved;
+    } catch (_error) {
+      return null;
+    } finally {
+      if (timer) global.clearTimeout(timer);
+    }
+  }
+  function injectNetworkHints(doc = document) {
+    const origins = [
+      "https://webrd01.is.autonavi.com",
+      "https://rt.map.gtimg.com",
+      "https://a.basemaps.cartocdn.com",
+      "https://a.tile.openstreetmap.org"
+    ];
+
+    origins.forEach((href) => {
+      if (doc.head.querySelector(`link[data-travel-map-hint="${href}"]`)) return;
+      const link = doc.createElement("link");
+      link.rel = "dns-prefetch";
+      link.href = href;
+      link.dataset.travelMapHint = href;
+      doc.head.appendChild(link);
+    });
+  }
+
+  function sourceOrder(region, sources) {
+    return region === "CN"
+      ? [sources.amap, sources.tencent, sources.carto, sources.osm]
+      : [sources.osm, sources.carto, sources.tencent, sources.amap];
+  }
+
+  class TileLoader {
+    constructor(map, options = {}) {
+      this.map = map;
+      this.sources = { ...DEFAULT_SOURCES, ...(options.sources || {}) };
+      this.overlay = options.overlay || null;
+      this.statusElement = options.statusElement || null;
+      this.onStatus = options.onStatus || null;
+      this.timeoutMs = options.timeoutMs || 8000;
+      this.minimumLoaded = options.minimumLoaded ?? 2;
+      this.maxErrorRatio = options.maxErrorRatio ?? 0.30;
+      this.regionOptions = options.region || {};
+      this.layer = null;
+      this.timer = null;
+      this.index = -1;
+      this.started = 0;
+      this.loaded = 0;
+      this.errors = 0;
+      this.order = [];
+      this.generation = 0;
+      this.switching = false;
+    }
+
+    async start() {
+      injectNetworkHints();
+      this._showLoading(true);
+      this._setStatus("正在根据本机时区选择底图");
+      const generation = ++this.generation;
+      const region = await detectVisitorRegion(this.regionOptions);
+      if (generation !== this.generation) return;
+
+      this.order = sourceOrder(region, this.sources).filter(Boolean);
+      this._activate(0, region === "CN" ? "已按国内网络选择底图" : "已按海外网络选择底图");
+      const activeGeneration = this.generation;
+      resolveVisitorRegion(this.regionOptions).then((resolved) => {
+        if (!resolved || resolved === region || activeGeneration !== this.generation || this.loaded > 0) return;
+        this.order = sourceOrder(resolved, this.sources).filter(Boolean);
+        this._activate(0, "已按异步地域结果校正底图");
+      });
+    }
+
+    stop() {
+      this.generation += 1;
+      this._destroyLayer();
+      this._showLoading(false);
+    }
+
+    _activate(index, reason) {
+      this._destroyLayer();
+      this.switching = false;
+      this.index = index;
+      this.started = 0;
+      this.loaded = 0;
+      this.errors = 0;
+
+      const source = this.order[index];
+      if (!source) {
+        this._showFinalFallback();
+        return;
+      }
+
+      this._showLoading(true);
+      this._setStatus(`${reason}，正在加载 ${source.name}`);
+      const layer = L.tileLayer(source.url, { ...source.options, opacity: 0 });
+      this.layer = layer;
+      const generation = ++this.generation;
+
+      layer.on("tileloadstart", () => {
+        if (this.layer !== layer || generation !== this.generation) return;
+        this.started += 1;
+      });
+
+      layer.on("tileload", () => {
+        if (this.layer !== layer || generation !== this.generation) return;
+        this.loaded += 1;
+        if (this.loaded === 1) {
+          layer.setOpacity(1);
+          this._showLoading(false);
+          this._setStatus("");
+        }
+      });
+
+      layer.on("tileerror", () => {
+        if (this.layer !== layer || generation !== this.generation) return;
+        this.errors += 1;
+        const attempted = Math.max(this.started, this.loaded + this.errors, 1);
+        if (attempted >= 3 && this.errors / attempted >= this.maxErrorRatio) {
+          this._fallback("瓦片错误率超过阈值");
+        }
+      });
+
+      layer.addTo(this.map);
+      this.timer = setTimeout(() => {
+        if (this.layer === layer && generation === this.generation && this.loaded <= this.minimumLoaded) {
+          this._fallback(`${this.timeoutMs / 1000} 秒内成功瓦片不足`);
+        }
+      }, this.timeoutMs);
+    }
+
+    _fallback(reason) {
+      if (this.switching) return;
+      this.switching = true;
+      const nextIndex = this.index + 1;
+      if (nextIndex >= this.order.length) {
+        this._destroyLayer();
+        this._showFinalFallback();
+        return;
+      }
+      this._activate(nextIndex, reason);
+    }
+
+    _destroyLayer() {
+      clearTimeout(this.timer);
+      this.timer = null;
+      if (this.layer) {
+        this.layer.off();
+        this.layer.remove();
+        this.layer = null;
+      }
+    }
+
+    _showLoading(visible) {
+      this.overlay?.classList.toggle("is-visible", visible);
+      if (!visible) this.overlay?.classList.remove("is-final-fallback");
+    }
+
+    _showFinalFallback() {
+      this.overlay?.classList.add("is-visible", "is-final-fallback");
+      this._setStatus("网络异常，地图暂无法加载，但路线图正常显示");
+    }
+
+    _setStatus(message) {
+      if (this.statusElement) {
+        this.statusElement.textContent = message;
+        this.statusElement.hidden = !message;
+      }
+      this.onStatus?.(message);
+    }
+  }
+
+  function bindRouteLabelVisibility(map, options = {}) {
+    const timeSelector = options.timeSelector || ".route-time-label";
+    const poiSelector = options.poiSelector || ".route-poi-detail";
+    const timeZoom = options.timeZoom || 9;
+    const poiZoom = options.poiZoom || 11;
+    const scope = options.root || map.getContainer?.()?.parentElement || document;
+
+    const update = () => {
+      const zoom = map.getZoom();
+      scope.querySelectorAll(timeSelector).forEach((element) => {
+        element.hidden = zoom < timeZoom;
+      });
+      scope.querySelectorAll(poiSelector).forEach((element) => {
+        element.hidden = zoom < poiZoom;
+      });
+    };
+
+    map.on("zoomend moveend", update);
+    update();
+    return () => map.off("zoomend moveend", update);
+  }
+
+  global.TravelRouteMap = Object.freeze({
+    TileLoader,
+    bindRouteLabelVisibility,
+    detectVisitorRegion,
+    resolveVisitorRegion,
+    injectNetworkHints,
+    sources: DEFAULT_SOURCES
+  });
+})(window);
+</script><script>
+(function(){
+  const start=function(){
+  const data={"stops":[{"id":"shenzhen","name":"深圳","localName":"Shenzhen","searchName":"Shenzhen Bao'an International Airport","city":"深圳","country":"中国","coordinates":{"latitude":22.5431,"longitude":114.0579},"sourceIds":[1]},{"id":"dubai-out","name":"迪拜（去程）","localName":"Dubai","searchName":"Dubai International Airport","city":"迪拜","country":"阿联酋","coordinates":{"latitude":25.2532,"longitude":55.3657},"sourceIds":[1]},{"id":"paris","name":"巴黎","localName":"Paris","searchName":"Paris, France","city":"巴黎","country":"法国","coordinates":{"latitude":48.8566,"longitude":2.3522},"sourceIds":[1,9]},{"id":"basel","name":"巴塞尔","localName":"Basel","searchName":"Basel SBB","city":"巴塞尔","country":"瑞士","coordinates":{"latitude":47.5474,"longitude":7.5896},"sourceIds":[1,4]},{"id":"grindelwald","name":"格林德瓦","localName":"Grindelwald","searchName":"Grindelwald Bahnhof","city":"格林德瓦","country":"瑞士","coordinates":{"latitude":46.6242,"longitude":8.0414},"sourceIds":[1,5]},{"id":"zermatt","name":"采尔马特","localName":"Zermatt","searchName":"Zermatt Bahnhof","city":"采尔马特","country":"瑞士","coordinates":{"latitude":46.0207,"longitude":7.7491},"sourceIds":[1,6]},{"id":"milan","name":"米兰","localName":"Milano","searchName":"Milano Centrale","city":"米兰","country":"意大利","coordinates":{"latitude":45.484,"longitude":9.2044},"sourceIds":[1,7,8]},{"id":"dubai-return","name":"迪拜（返程）","localName":"Dubai","searchName":"Dubai International Airport","city":"迪拜","country":"阿联酋","coordinates":{"latitude":25.2532,"longitude":55.3657},"sourceIds":[1]},{"id":"bangkok","name":"曼谷","localName":"Bangkok","searchName":"Suvarnabhumi Airport","city":"曼谷","country":"泰国","coordinates":{"latitude":13.69,"longitude":100.7501},"sourceIds":[1]},{"id":"hong-kong","name":"香港","localName":"Hong Kong","searchName":"Hong Kong International Airport","city":"香港","country":"中国","coordinates":{"latitude":22.308,"longitude":113.9185},"sourceIds":[1]}],"legs":[{"fromId":"shenzhen","toId":"dubai-out","mode":"飞机","duration":"约 7.5 小时（Excel）","sourceIds":[1],"icon":"➜"},{"fromId":"dubai-out","toId":"paris","mode":"飞机","duration":"约 7.5 小时（Excel）","sourceIds":[1],"icon":"➜"},{"fromId":"paris","toId":"basel","mode":"火车","duration":"已购 09:26–13:23","sourceIds":[1,4],"icon":"➜"},{"fromId":"basel","toId":"grindelwald","mode":"火车","duration":"以 SBB 当日班次为准","sourceIds":[4],"icon":"➜"},{"fromId":"grindelwald","toId":"zermatt","mode":"火车","duration":"约 3 小时起，换乘以 SBB 为准","sourceIds":[1,4],"icon":"➜"},{"fromId":"zermatt","toId":"milan","mode":"火车","duration":"经 Visp／Brig，班次以 SBB/Trenitalia 为准","sourceIds":[4,7],"icon":"➜"},{"fromId":"milan","toId":"dubai-return","mode":"飞机","duration":"约 6 小时（Excel）","sourceIds":[1],"icon":"➜"},{"fromId":"dubai-return","toId":"bangkok","mode":"飞机","duration":"约 6.5 小时（Excel）","sourceIds":[1],"icon":"➜"},{"fromId":"bangkok","toId":"hong-kong","mode":"飞机","duration":"约 3 小时（Excel）","sourceIds":[1],"icon":"➜"}]};
+  const status=document.getElementById("route-map-status");
+  const overlay=document.getElementById("route-map-loading");
+  if(!window.L){ status.textContent="地图组件暂不可用，但路线文字正常显示"; overlay.classList.add("is-final-fallback"); return; }
+  const points=data.stops.map((stop)=>[stop.coordinates.latitude,stop.coordinates.longitude]);
+  const map=L.map("route-map",{scrollWheelZoom:false});
+  if(points.length) map.fitBounds(points,{padding:[28,28],maxZoom:9}); else map.setView([20,0],2);
+  data.stops.forEach((stop,index)=>{
+    const popup=document.createElement("strong"); popup.textContent=stop.localName&&stop.localName!==stop.name?stop.name+" / "+stop.localName:stop.name;
+    L.marker(points[index]).addTo(map).bindPopup(popup);
+  });
+  data.legs.forEach((leg,index)=>{
+    const from=data.stops.find((stop)=>stop.id===leg.fromId),to=data.stops.find((stop)=>stop.id===leg.toId); if(!from||!to)return;
+    const line=L.polyline([[from.coordinates.latitude,from.coordinates.longitude],[to.coordinates.latitude,to.coordinates.longitude]],{color:leg.color||"#2563a8",weight:4,opacity:.82}).addTo(map);
+    const center=line.getCenter();
+    const timeLabel=document.createElement("span"); timeLabel.textContent=(leg.icon||"➜")+" "+leg.duration;
+    L.marker(center,{interactive:false,icon:L.divIcon({className:"route-time-label",html:timeLabel.outerHTML})}).addTo(map);
+    const bearing=Math.atan2(to.coordinates.longitude-from.coordinates.longitude,to.coordinates.latitude-from.coordinates.latitude)*180/Math.PI;
+    const arrow=document.createElement("span"); arrow.textContent="➜"; arrow.style.transform="rotate("+bearing+"deg)";
+    L.marker(center,{interactive:false,icon:L.divIcon({className:"route-arrow",html:arrow.outerHTML})}).addTo(map);
+  });
+  new TravelRouteMap.TileLoader(map,{overlay:overlay,statusElement:status}).start();
+  TravelRouteMap.bindRouteLabelVisibility(map);
+  };
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",start,{once:true}); else start();
+})();
+</script></section><section class="guide-section" data-guide-module="itinerary" id="itinerary" data-nav-label="逐日行程"><h2>逐日行程</h2><div class="itinerary-filters" role="group" aria-label="日程筛选"><button type="button" data-filter="all" aria-pressed="true">全部</button><button type="button" data-filter="arrival" aria-pressed="false">抵达</button><button type="button" data-filter="city" aria-pressed="false">城市</button><button type="button" data-filter="daytrip" aria-pressed="false">一日游</button><button type="button" data-filter="transfer" aria-pressed="false">转场</button><button type="button" data-filter="mountain" aria-pressed="false">山野</button><button type="button" data-filter="flex" aria-pressed="false">机动</button><button type="button" data-filter="departure" aria-pressed="false">返程</button></div><article class="day card" id="day-1" data-itinerary-date="2026-09-24" data-kind="arrival"><header><div class="day-label"><span>Day 1</span><small><time datetime="2026-09-24">2026-09-24</time></small></div><h3>深圳 → 迪拜 → 巴黎｜长途抵达与恢复</h3><p>住宿：机上／巴黎住宿待补充</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="深圳">深圳</button> → <button type="button" class="copy-target" data-copy="迪拜">迪拜</button> → <button type="button" class="copy-target" data-copy="巴黎">巴黎</button></p><ol class="timeline"><li class="slot"><div class="slot-time">00:45</div><div><h4><button type="button" class="copy-target" data-copy="深圳宝安机场">深圳宝安机场</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>按订单办理第一段航班，保留联程行李与转机规则截图。</p><p class="meta">飞机 · 移动 约 7.5 小时 · 停留 以航司安排为准</p></div></li><li class="slot"><div class="slot-time">14:40</div><div><h4><button type="button" class="copy-target" data-copy="迪拜国际机场">迪拜国际机场</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>搭乘第二段航班前往巴黎。</p><p class="meta">飞机 · 移动 约 7.5 小时 · 停留 转机以实际登机口为准</p></div></li><li class="slot"><div class="slot-time">20:00 后</div><div><h4><button type="button" class="copy-target" data-copy="巴黎戴高乐机场">巴黎戴高乐机场</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-9" aria-label="查看来源 9">[9]</a></h4><p>入境、前往住宿并休息；不追加市区打卡。</p><p class="meta">机场交通待按住宿核验 · 移动 待核验 · 停留 当晚</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>机场或酒店附近简餐即可。</li></ul></div><div><h4>风险</h4><ul><li>跨两段长航程，防止因晚点影响抵达后体力。</li></ul></div><div><h4>替代方案</h4><ul><li>若航班延误，次日卢浮宫仍以已购预约时段为优先。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></div></article><article class="day card" id="day-2" data-itinerary-date="2026-09-25" data-kind="city"><header><div class="day-label"><span>Day 2</span><small><time datetime="2026-09-25">2026-09-25</time></small></div><h3>巴黎｜卢浮宫与塞纳河经典线</h3><p>住宿：巴黎</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="卢浮宫">卢浮宫</button> → <button type="button" class="copy-target" data-copy="杜乐丽花园">杜乐丽花园</button> → <button type="button" class="copy-target" data-copy="凯旋门／香榭丽舍">凯旋门／香榭丽舍</button> → <button type="button" class="copy-target" data-copy="埃菲尔铁塔">埃菲尔铁塔</button> → <button type="button" class="copy-target" data-copy="塞纳河游船">塞纳河游船</button></p><ol class="timeline"><li class="slot"><div class="slot-time">09:00–12:00</div><div><h4><button type="button" class="copy-target" data-copy="卢浮宫 Musée du Louvre">卢浮宫 Musée du Louvre</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-2" aria-label="查看来源 2">[2]</a></h4><p>使用已购预约，按体力选镇馆重点；预留安检与馆内步行时间。</p><p class="meta">地铁 1／7 号线至 Palais Royal 附近 · 移动 以酒店出发为准 · 停留 3 小时</p></div></li><li class="slot"><div class="slot-time">12:00–13:30</div><div><h4><button type="button" class="copy-target" data-copy="杜乐丽花园 Jardin des Tuileries">杜乐丽花园 Jardin des Tuileries</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>花园周边午餐与短休，不把午间排满。</p><p class="meta">步行 · 移动 约 5–10 分钟 · 停留 1.5 小时</p></div></li><li class="slot"><div class="slot-time">13:30–16:30</div><div><h4><button type="button" class="copy-target" data-copy="凯旋门 Arc de Triomphe">凯旋门 Arc de Triomphe</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-9" aria-label="查看来源 9">[9]</a></h4><p>沿香榭丽舍散步；Big Bus 仅作可选交通体验，不作为赶点工具。</p><p class="meta">地铁／步行／可选观光巴士 · 移动 约 25–40 分钟 · 停留 3 小时</p></div></li><li class="slot"><div class="slot-time">17:00–19:30</div><div><h4><button type="button" class="copy-target" data-copy="埃菲尔铁塔与塞纳河">埃菲尔铁塔与塞纳河</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>战神广场拍摄后，按已售时刻选择 Bateaux Parisiens 等合规游船。</p><p class="meta">地铁 6 号线 Bir-Hakeim 附近／步行 · 移动 约 20–35 分钟 · 停留 2–2.5 小时</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>午餐放在杜乐丽花园周边；晚餐可在游船后就近简餐。</li></ul></div><div><h4>风险</h4><ul><li>卢浮宫与凯旋门均步行量大；不建议同时强行登塔。</li></ul></div><div><h4>替代方案</h4><ul><li>若下雨，压缩户外拍摄，延长卢浮宫或选择咖啡馆休息。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-2" aria-label="查看来源 2">[2]</a><a class="source-ref" href="#source-9" aria-label="查看来源 9">[9]</a><a class="source-ref" href="#source-10" aria-label="查看来源 10">[10]</a></div></article><article class="day card" id="day-3" data-itinerary-date="2026-09-26" data-kind="city"><header><div class="day-label"><span>Day 3</span><small><time datetime="2026-09-26">2026-09-26</time></small></div><h3>巴黎｜游乐艺术、左岸书店与蒙马特</h3><p>住宿：巴黎</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="Les Pavillons de Bercy">Les Pavillons de Bercy</button> → <button type="button" class="copy-target" data-copy="莎士比亚书店">莎士比亚书店</button> → <button type="button" class="copy-target" data-copy="蒙马特">蒙马特</button></p><ol class="timeline"><li class="slot"><div class="slot-time">上午</div><div><h4><button type="button" class="copy-target" data-copy="Les Pavillons de Bercy">Les Pavillons de Bercy</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>按已预约导览前往；馆址 53 Av. des Terroirs de France，导览约 1.5 小时。</p><p class="meta">地铁 14 号线 Cour Saint-Émilion 附近 · 移动 以酒店出发为准 · 停留 约 1.5 小时</p></div></li><li class="slot"><div class="slot-time">下午</div><div><h4><button type="button" class="copy-target" data-copy="Shakespeare and Company">Shakespeare and Company</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>前往 37 Rue de la Bûcherie 的书店，再在左岸短走。</p><p class="meta">地铁＋步行 · 移动 约 30–45 分钟 · 停留 1–2 小时</p></div></li><li class="slot"><div class="slot-time">傍晚</div><div><h4><button type="button" class="copy-target" data-copy="蒙马特 Montmartre">蒙马特 Montmartre</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>以看日落和慢走为目标，避免再加收费景点。</p><p class="meta">地铁＋步行 · 移动 约 30–45 分钟 · 停留 2 小时</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>左岸咖啡或蒙马特晚餐二选一，避免来回折返。</li></ul></div><div><h4>风险</h4><ul><li>蒙马特坡度和台阶较多，夜间注意随身物品。</li></ul></div><div><h4>替代方案</h4><ul><li>体力不足时取消蒙马特，改为左岸咖啡馆与提前回酒店。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></div></article><article class="day card" id="day-4" data-itinerary-date="2026-09-27" data-kind="daytrip"><header><div class="day-label"><span>Day 4</span><small><time datetime="2026-09-27">2026-09-27</time></small></div><h3>巴黎 ↔ 凡尔赛｜凡尔赛单点深度日</h3><p>住宿：巴黎</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="巴黎">巴黎</button> → <button type="button" class="copy-target" data-copy="凡尔赛宫 Château de Versailles">凡尔赛宫 Château de Versailles</button> → <button type="button" class="copy-target" data-copy="巴黎">巴黎</button></p><ol class="timeline"><li class="slot"><div class="slot-time">上午</div><div><h4><button type="button" class="copy-target" data-copy="凡尔赛宫 Château de Versailles">凡尔赛宫 Château de Versailles</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-3" aria-label="查看来源 3">[3]</a><a class="source-ref" href="#source-9" aria-label="查看来源 9">[9]</a></h4><p>按官网预约时段进宫；宫殿、花园以实际开放和体力选取。</p><p class="meta">RER C 或铁路，以官方实时信息为准 · 移动 约 40 分钟起 · 停留 半天至全天</p></div></li><li class="slot"><div class="slot-time">午后</div><div><h4><button type="button" class="copy-target" data-copy="凡尔赛花园">凡尔赛花园</button> <a class="source-ref" href="#source-3" aria-label="查看来源 3">[3]</a></h4><p>晴天继续花园，雨天缩短户外，保留返程缓冲。</p><p class="meta">步行 · 移动 园内 · 停留 2–3 小时</p></div></li><li class="slot"><div class="slot-time">晚上</div><div><h4><button type="button" class="copy-target" data-copy="巴黎">巴黎</button> <a class="source-ref" href="#source-3" aria-label="查看来源 3">[3]</a><a class="source-ref" href="#source-9" aria-label="查看来源 9">[9]</a></h4><p>回城后只安排晚餐或休息。</p><p class="meta">RER／铁路 · 移动 约 40 分钟起 · 停留 灵活</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>在凡尔赛或回巴黎后解决正餐，随身备水和小食。</li></ul></div><div><h4>风险</h4><ul><li>凡尔赛与吉维尼不建议同日；具体交通与花园开放必须复核。</li></ul></div><div><h4>替代方案</h4><ul><li>若未约到凡尔赛，改橘园美术馆＋巴黎歌剧院周边，不再临时远赴吉维尼。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-3" aria-label="查看来源 3">[3]</a></div></article><article class="day card" id="day-5" data-itinerary-date="2026-09-28" data-kind="city"><header><div class="day-label"><span>Day 5</span><small><time datetime="2026-09-28">2026-09-28</time></small></div><h3>巴黎｜低强度街区漫步与打包</h3><p>住宿：巴黎</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="圣日耳曼德佩">圣日耳曼德佩</button> → <button type="button" class="copy-target" data-copy="拉丁区">拉丁区</button> → <button type="button" class="copy-target" data-copy="玛莱区（可选）">玛莱区（可选）</button> → <button type="button" class="copy-target" data-copy="酒店">酒店</button></p><ol class="timeline"><li class="slot"><div class="slot-time">上午</div><div><h4><button type="button" class="copy-target" data-copy="圣日耳曼德佩 Saint-Germain-des-Prés">圣日耳曼德佩 Saint-Germain-des-Prés</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>咖啡、书店与街区散步，以放松为主。</p><p class="meta">地铁＋步行 · 移动 以酒店出发为准 · 停留 2–3 小时</p></div></li><li class="slot"><div class="slot-time">下午</div><div><h4><button type="button" class="copy-target" data-copy="拉丁区 Latin Quarter">拉丁区 Latin Quarter</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>沿左岸慢走；如前日行程消耗大，可回酒店整理行李。</p><p class="meta">步行 · 移动 约 15–25 分钟 · 停留 2 小时</p></div></li><li class="slot"><div class="slot-time">傍晚</div><div><h4><button type="button" class="copy-target" data-copy="玛莱区 Le Marais（可选）">玛莱区 Le Marais（可选）</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>仅在体力允许时逛复古小店和面包坊；当晚完成瑞士段物品整理。</p><p class="meta">地铁＋步行 · 移动 约 20–30 分钟 · 停留 1–2 小时</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>安排一间想去的咖啡馆即可，不追逐网红排队。</li></ul></div><div><h4>风险</h4><ul><li>次日早班跨境火车；不要安排诺曼底／圣米歇尔山一日往返。</li></ul></div><div><h4>替代方案</h4><ul><li>雨天改橘园美术馆（须先核验预约）；疲劳则全天休息。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></div></article><article class="day card" id="day-6" data-itinerary-date="2026-09-29" data-kind="transfer"><header><div class="day-label"><span>Day 6</span><small><time datetime="2026-09-29">2026-09-29</time></small></div><h3>巴黎 → 巴塞尔 → 格林德瓦｜跨境铁路与梦幻山坡</h3><p>住宿：格林德瓦</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="巴黎里昂站">巴黎里昂站</button> → <button type="button" class="copy-target" data-copy="Basel SBB">Basel SBB</button> → <button type="button" class="copy-target" data-copy="格林德瓦">格林德瓦</button> → <button type="button" class="copy-target" data-copy="梦幻山坡">梦幻山坡</button> → <button type="button" class="copy-target" data-copy="Coop">Coop</button></p><ol class="timeline"><li class="slot"><div class="slot-time">09:26–13:23</div><div><h4><button type="button" class="copy-target" data-copy="Paris Gare de Lyon → Basel SBB">Paris Gare de Lyon → Basel SBB</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a></h4><p>使用已购车票；换乘前确认站台和护照随身。</p><p class="meta">火车 · 移动 3 小时 57 分钟 · 停留 在途</p></div></li><li class="slot"><div class="slot-time">下午</div><div><h4><button type="button" class="copy-target" data-copy="Basel SBB → Grindelwald">Basel SBB → Grindelwald</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a></h4><p>按 SBB 实际班次继续前往格林德瓦；到站后办理入住。</p><p class="meta">火车 · 移动 以当日班次为准 · 停留 在途</p></div></li><li class="slot"><div class="slot-time">17:00–19:00</div><div><h4><button type="button" class="copy-target" data-copy="Grindelwald 梦幻山坡">Grindelwald 梦幻山坡</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>从车站向 Pfingstegg 方向慢走，按光线与体力决定拍摄时长。</p><p class="meta">步行 · 移动 约 10–20 分钟 · 停留 1–2 小时</p></div></li><li class="slot"><div class="slot-time">晚上</div><div><h4><button type="button" class="copy-target" data-copy="Coop Grindelwald">Coop Grindelwald</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>采购早餐、饮水和山上零食，早睡为 First 日留体力。</p><p class="meta">步行 · 移动 就近 · 停留 30–45 分钟</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>以超市补给为主；若晚到，优先解决晚餐而非拍摄。</li></ul></div><div><h4>风险</h4><ul><li>跨境段晚点可能压缩山坡拍摄，日落不是刚性任务。</li></ul></div><div><h4>替代方案</h4><ul><li>抵达晚则取消散步，翌日 First 结束后补拍。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a><a class="source-ref" href="#source-10" aria-label="查看来源 10">[10]</a></div></article><article class="day card" id="day-7" data-itinerary-date="2026-09-30" data-kind="mountain"><header><div class="day-label"><span>Day 7</span><small><time datetime="2026-09-30">2026-09-30</time></small></div><h3>格林德瓦｜First 峰与 Bachalpsee／Gelmerbahn 二选一</h3><p>住宿：格林德瓦</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="Grindelwald First 缆车站">Grindelwald First 缆车站</button> → <button type="button" class="copy-target" data-copy="First">First</button> → <button type="button" class="copy-target" data-copy="Bachalpsee">Bachalpsee</button> → <button type="button" class="copy-target" data-copy="格林德瓦">格林德瓦</button></p><ol class="timeline"><li class="slot"><div class="slot-time">上午</div><div><h4><button type="button" class="copy-target" data-copy="Grindelwald First">Grindelwald First</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-5" aria-label="查看来源 5">[5]</a></h4><p>先在官网和现场确认缆车、徒步步道及活动开放状态，再决定购票。</p><p class="meta">缆车 · 移动 约 30 分钟 · 停留 半天</p></div></li><li class="slot"><div class="slot-time">中午前后</div><div><h4><button type="button" class="copy-target" data-copy="Bachalpsee">Bachalpsee</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-5" aria-label="查看来源 5">[5]</a></h4><p>天气与路况允许时徒步往返；不以打卡速度为目标。</p><p class="meta">徒步 · 移动 单程约 1 小时（Excel 参考） · 停留 2–3 小时</p></div></li><li class="slot"><div class="slot-time">下午</div><div><h4><button type="button" class="copy-target" data-copy="First 下山活动区">First 下山活动区</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-5" aria-label="查看来源 5">[5]</a></h4><p>Mountain Cart、Trottibike 等仅在开放、体力和天气均合适时选择一项。</p><p class="meta">缆车／可选山地项目 · 移动 待现场核验 · 停留 1–2 小时</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>带水和补给；可在山顶餐厅或回镇上用餐。</li></ul></div><div><h4>风险</h4><ul><li>高山天气变化快，步道湿滑或能见度差时立即放弃湖边徒步。</li></ul></div><div><h4>替代方案</h4><ul><li>只坐 First 缆车观景后下山；把徒步窗口留给 10 月 2 日。</li><li>如选择盖尔默登山铁路 Gelmerbahn，当日改为格林德瓦→Meiringen／Handegg 的独立山地活动，并取消 First 与 Bachalpsee；仅在官方确认运行、座位和天气后执行。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-5" aria-label="查看来源 5">[5]</a><a class="source-ref" href="#source-10" aria-label="查看来源 10">[10]</a><a class="source-ref" href="#source-24" aria-label="查看来源 24">[24]</a><a class="source-ref" href="#source-25" aria-label="查看来源 25">[25]</a></div></article><article class="day card" id="day-8" data-itinerary-date="2026-10-01" data-kind="transfer"><header><div class="day-label"><span>Day 8</span><small><time datetime="2026-10-01">2026-10-01</time></small></div><h3>格林德瓦 → 采尔马特｜转场与马特洪峰天气决策</h3><p>住宿：采尔马特</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="格林德瓦">格林德瓦</button> → <button type="button" class="copy-target" data-copy="Interlaken／Visp（以 SBB 为准）">Interlaken／Visp（以 SBB 为准）</button> → <button type="button" class="copy-target" data-copy="采尔马特">采尔马特</button></p><ol class="timeline"><li class="slot"><div class="slot-time">08:00 后</div><div><h4><button type="button" class="copy-target" data-copy="Grindelwald Bahnhof">Grindelwald Bahnhof</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a></h4><p>前往采尔马特；以 SBB 当日时刻为准，不安排自驾。</p><p class="meta">火车 · 移动 约 3 小时起（Excel 参考） · 停留 在途</p></div></li><li class="slot"><div class="slot-time">下午</div><div><h4><button type="button" class="copy-target" data-copy="采尔马特 Zermatt">采尔马特 Zermatt</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a></h4><p>入住后查看马特洪峰官方实时天气／摄像头和次日山地交通状态。</p><p class="meta">步行 · 移动 镇内 · 停留 1 小时</p></div></li><li class="slot"><div class="slot-time">傍晚</div><div><h4><button type="button" class="copy-target" data-copy="采尔马特镇">采尔马特镇</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>低强度熟悉车站、缆车及餐饮位置，为晴天窗口腾出体力。</p><p class="meta">步行 · 移动 镇内 · 停留 1–2 小时</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>在镇内用简餐，避免到达日再排高海拔活动。</li></ul></div><div><h4>风险</h4><ul><li>当天不承诺上山；马特洪峰能见度是决定因素。</li></ul></div><div><h4>替代方案</h4><ul><li>如早到且天气稳定，仅做镇内散步，主观景留次日。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a><a class="source-ref" href="#source-10" aria-label="查看来源 10">[10]</a></div></article><article class="day card" id="day-9" data-itinerary-date="2026-10-02" data-kind="mountain"><header><div class="day-label"><span>Day 9</span><small><time datetime="2026-10-02">2026-10-02</time></small></div><h3>采尔马特｜马特洪峰晴天优先／天气机动</h3><p>住宿：采尔马特</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="采尔马特">采尔马特</button> → <button type="button" class="copy-target" data-copy="Gornergrat 或 Matterhorn Paradise">Gornergrat 或 Matterhorn Paradise</button> → <button type="button" class="copy-target" data-copy="采尔马特">采尔马特</button></p><ol class="timeline"><li class="slot"><div class="slot-time">早晨</div><div><h4><button type="button" class="copy-target" data-copy="马特洪峰山地交通">马特洪峰山地交通</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a></h4><p>仅在官方实时天气、摄像头和运行状态均适合时，选择 Gornergrat 或 Matterhorn Paradise 其中一条上山。</p><p class="meta">登山火车或缆车 · 移动 以官方当日时刻为准 · 停留 半天至全天</p></div></li><li class="slot"><div class="slot-time">中午</div><div><h4><button type="button" class="copy-target" data-copy="高海拔观景区">高海拔观景区</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a></h4><p>保暖、防风、补水；不将 Excel 中误写的少女峰票作为采尔马特当日票务。</p><p class="meta">步行 · 移动 区域内 · 停留 1–2 小时</p></div></li><li class="slot"><div class="slot-time">下午</div><div><h4><button type="button" class="copy-target" data-copy="采尔马特镇">采尔马特镇</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a></h4><p>提前下山并留出收拾行李时间，翌日南下意大利。</p><p class="meta">登山火车／缆车 · 移动 以实际班次为准 · 停留 灵活</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>带高热量零食；高海拔餐饮作为补充而非唯一依赖。</li></ul></div><div><h4>风险</h4><ul><li>强风、低云、低温时景观和交通均可能受影响。</li></ul></div><div><h4>替代方案</h4><ul><li>若天气差，镇内休整；若 First 前日未完成，可在交通允许前提下调整，但不强行往返。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a><a class="source-ref" href="#source-10" aria-label="查看来源 10">[10]</a></div></article><article class="day card" id="day-10" data-itinerary-date="2026-10-03" data-kind="transfer"><header><div class="day-label"><span>Day 10</span><small><time datetime="2026-10-03">2026-10-03</time></small></div><h3>采尔马特 → 米兰｜瑞士收尾与南下意大利</h3><p>住宿：米兰</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="采尔马特">采尔马特</button> → <button type="button" class="copy-target" data-copy="Visp／Brig">Visp／Brig</button> → <button type="button" class="copy-target" data-copy="米兰">米兰</button></p><ol class="timeline"><li class="slot"><div class="slot-time">上午</div><div><h4><button type="button" class="copy-target" data-copy="Zermatt Bahnhof">Zermatt Bahnhof</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a><a class="source-ref" href="#source-7" aria-label="查看来源 7">[7]</a></h4><p>退房后经 Visp 或 Brig 火车南下米兰；购票与换乘以 SBB、Trenitalia 当日结果为准。</p><p class="meta">火车 · 移动 以当日班次为准 · 停留 在途</p></div></li><li class="slot"><div class="slot-time">下午</div><div><h4><button type="button" class="copy-target" data-copy="米兰酒店">米兰酒店</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-8" aria-label="查看来源 8">[8]</a></h4><p>入住、洗衣与休息，确认次日米兰大教堂登顶预约。</p><p class="meta">地铁／步行 · 移动 以住宿为准 · 停留 灵活</p></div></li><li class="slot"><div class="slot-time">晚上</div><div><h4><button type="button" class="copy-target" data-copy="米兰市中心">米兰市中心</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>只安排附近晚餐或短走。</p><p class="meta">步行／地铁 · 移动 就近 · 停留 1 小时</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>到达后以酒店附近晚餐为主。</li></ul></div><div><h4>风险</h4><ul><li>Excel 中巴塞尔取车环线需 2–3 天，不能与本日米兰转场同时执行。</li></ul></div><div><h4>替代方案</h4><ul><li>若想自驾，须另行增加瑞士天数并明确巴塞尔取还车，不纳入本次主线。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a><a class="source-ref" href="#source-7" aria-label="查看来源 7">[7]</a></div></article><article class="day card" id="day-11" data-itinerary-date="2026-10-04" data-kind="city"><header><div class="day-label"><span>Day 11</span><small><time datetime="2026-10-04">2026-10-04</time></small></div><h3>米兰｜大教堂、城堡与 Navigli</h3><p>住宿：米兰</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="米兰大教堂">米兰大教堂</button> → <button type="button" class="copy-target" data-copy="埃马努埃莱二世长廊">埃马努埃莱二世长廊</button> → <button type="button" class="copy-target" data-copy="斯福尔扎城堡">斯福尔扎城堡</button> → <button type="button" class="copy-target" data-copy="森皮奥内公园">森皮奥内公园</button> → <button type="button" class="copy-target" data-copy="Navigli">Navigli</button></p><ol class="timeline"><li class="slot"><div class="slot-time">上午</div><div><h4><button type="button" class="copy-target" data-copy="Duomo di Milano">Duomo di Milano</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-8" aria-label="查看来源 8">[8]</a></h4><p>按预约进入大教堂及屋顶；以官网时段、安全检查和登顶通道为准。</p><p class="meta">地铁 Duomo 站附近 · 移动 以住宿出发为准 · 停留 2–3 小时</p></div></li><li class="slot"><div class="slot-time">中午</div><div><h4><button type="button" class="copy-target" data-copy="Galleria Vittorio Emanuele II">Galleria Vittorio Emanuele II</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-8" aria-label="查看来源 8">[8]</a></h4><p>在长廊短走与午餐，不将购物作为硬任务。</p><p class="meta">步行 · 移动 相邻 · 停留 1–1.5 小时</p></div></li><li class="slot"><div class="slot-time">下午</div><div><h4><button type="button" class="copy-target" data-copy="Castello Sforzesco 与 Parco Sempione">Castello Sforzesco 与 Parco Sempione</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>从大教堂步行或乘地铁前往，城堡参观与公园散步二选一控制强度。</p><p class="meta">步行／地铁 · 移动 约 15–30 分钟 · 停留 2–3 小时</p></div></li><li class="slot"><div class="slot-time">晚上</div><div><h4><button type="button" class="copy-target" data-copy="Navigli">Navigli</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>体验开胃酒文化；以回程交通和体力为边界。</p><p class="meta">地铁／步行 · 移动 约 20–35 分钟 · 停留 1.5–2 小时</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>Navigli 的 Aperitivo 可作晚餐；注意各店套餐与服务费规则。</li></ul></div><div><h4>风险</h4><ul><li>大教堂屋顶需要预约；雨天、强风或客流可能影响登顶。</li></ul></div><div><h4>替代方案</h4><ul><li>屋顶不可用时仅参观教堂内部，下午延长城堡或咖啡馆时间。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-8" aria-label="查看来源 8">[8]</a><a class="source-ref" href="#source-10" aria-label="查看来源 10">[10]</a></div></article><article class="day card" id="day-12" data-itinerary-date="2026-10-05" data-kind="flex"><header><div class="day-label"><span>Day 12</span><small><time datetime="2026-10-05">2026-10-05</time></small></div><h3>米兰｜购物、休息与离境准备</h3><p>住宿：米兰</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="酒店">酒店</button> → <button type="button" class="copy-target" data-copy="米兰购物区（可选）">米兰购物区（可选）</button> → <button type="button" class="copy-target" data-copy="酒店">酒店</button></p><ol class="timeline"><li class="slot"><div class="slot-time">上午</div><div><h4><button type="button" class="copy-target" data-copy="酒店">酒店</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>睡到自然醒、整理行李与退税材料，不安排刚性景点。</p><p class="meta">不适用 · 移动 不适用 · 停留 灵活</p></div></li><li class="slot"><div class="slot-time">下午</div><div><h4><button type="button" class="copy-target" data-copy="米兰购物区（按住宿就近）">米兰购物区（按住宿就近）</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>按兴趣购物或补买伴手礼；避免跨城追店。</p><p class="meta">步行／地铁 · 移动 待按酒店核验 · 停留 2–3 小时</p></div></li><li class="slot"><div class="slot-time">晚上</div><div><h4><button type="button" class="copy-target" data-copy="酒店">酒店</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>确认次日航班、机场、航站楼、行李限额和线上值机条件。</p><p class="meta">不适用 · 移动 不适用 · 停留 1 小时</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>安排一顿想吃的米兰餐即可。</li></ul></div><div><h4>风险</h4><ul><li>勿把最后一天排成购物马拉松，影响跨境转机。</li></ul></div><div><h4>替代方案</h4><ul><li>如有未完成景点，仅补一个就近项目，其他时间留给休息。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></div></article><article class="day card" id="day-13" data-itinerary-date="2026-10-06" data-kind="departure"><header><div class="day-label"><span>Day 13</span><small><time datetime="2026-10-06">2026-10-06</time></small></div><h3>米兰 → 迪拜 → 曼谷｜离境与两段转机</h3><p>住宿：机上／曼谷机场转机</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="米兰机场">米兰机场</button> → <button type="button" class="copy-target" data-copy="迪拜">迪拜</button> → <button type="button" class="copy-target" data-copy="曼谷">曼谷</button></p><ol class="timeline"><li class="slot"><div class="slot-time">航班前</div><div><h4><button type="button" class="copy-target" data-copy="米兰住宿 → 出发机场">米兰住宿 → 出发机场</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>按航司要求抵达机场；机场及航站楼未在 Excel 明示，前一晚核验。</p><p class="meta">火车／巴士／正规出租车待核验 · 移动 待核验 · 停留 预留充足时间</p></div></li><li class="slot"><div class="slot-time">11:30–19:30</div><div><h4><button type="button" class="copy-target" data-copy="米兰 → 迪拜">米兰 → 迪拜</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>搭乘第一段返程航班。</p><p class="meta">飞机 · 移动 约 6 小时 · 停留 在途</p></div></li><li class="slot"><div class="slot-time">22:30</div><div><h4><button type="button" class="copy-target" data-copy="迪拜国际机场">迪拜国际机场</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>搭乘第二段航班前往曼谷，转机时以航司 App 登机口为准。</p><p class="meta">飞机 · 移动 约 6.5 小时 · 停留 在途</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>机场内按转机时间解决，备少量能量食品。</li></ul></div><div><h4>风险</h4><ul><li>多段航班勿托运行李中放护照、充电宝或必要药品。</li></ul></div><div><h4>替代方案</h4><ul><li>航班变动立即由承运航司处理，攻略不替代订单规则。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></div></article><article class="day card" id="day-14" data-itinerary-date="2026-10-07" data-kind="departure"><header><div class="day-label"><span>Day 14</span><small><time datetime="2026-10-07">2026-10-07</time></small></div><h3>曼谷 → 香港｜最后一段返程</h3><p>住宿：返港</p></header><p><b>路线：</b><button type="button" class="copy-target" data-copy="曼谷机场">曼谷机场</button> → <button type="button" class="copy-target" data-copy="香港国际机场">香港国际机场</button></p><ol class="timeline"><li class="slot"><div class="slot-time">08:00</div><div><h4><button type="button" class="copy-target" data-copy="曼谷机场">曼谷机场</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>抵达后按联程实际流程衔接下一段；如需入境或提取行李，以航司与当地规则为准。</p><p class="meta">转机流程 · 移动 待核验 · 停留 至登机</p></div></li><li class="slot"><div class="slot-time">14:15–18:15</div><div><h4><button type="button" class="copy-target" data-copy="曼谷 → 香港">曼谷 → 香港</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>搭乘最后一段航班返港。</p><p class="meta">飞机 · 移动 约 3 小时 · 停留 在途</p></div></li><li class="slot"><div class="slot-time">抵港后</div><div><h4><button type="button" class="copy-target" data-copy="香港国际机场">香港国际机场</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>入境、提取行李并结束行程。</p><p class="meta">机场交通自理 · 移动 待核验 · 停留 不适用</p></div></li></ol><div class="day-notes"><div><h4>吃喝安排</h4><ul><li>以机场餐饮为准。</li></ul></div><div><h4>风险</h4><ul><li>转机与入境要求可能调整，出发前以航司和目的地官方通知为准。</li></ul></div><div><h4>替代方案</h4><ul><li>预留可变时间，不在当晚安排不可取消事项。</li></ul></div></div><div><a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></div></article></section><section class="guide-section" data-guide-module="transport" id="transport" data-nav-label="交通"><h2>城际与市内交通</h2><div class="table-wrap"><table><thead><tr><th>出发地</th><th>目的地</th><th>出发窗口</th><th>抵达窗口</th><th>方式</th><th>参考时间</th><th>参考费用</th><th>核验</th></tr></thead><tbody><tr><td><button type="button" class="copy-target" data-copy="巴黎里昂站">巴黎里昂站</button></td><td><button type="button" class="copy-target" data-copy="Basel SBB">Basel SBB</button></td><td>2026-09-29 09:26（已购）</td><td>13:23（Excel 记录）</td><td>火车</td><td>3 小时 57 分钟</td><td>68 CHF（Excel 记录）</td><td>出发前在订单及 SBB／SNCF 复核站台与换乘。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a></td></tr><tr><td><button type="button" class="copy-target" data-copy="Basel SBB">Basel SBB</button></td><td><button type="button" class="copy-target" data-copy="Grindelwald">Grindelwald</button></td><td>9 月 29 日下午</td><td>傍晚前后</td><td>火车</td><td>以 SBB 当日班次为准</td><td>待查询</td><td>不将换乘时间写死；到站后优先入住。 <a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a></td></tr><tr><td><button type="button" class="copy-target" data-copy="Grindelwald">Grindelwald</button></td><td><button type="button" class="copy-target" data-copy="Zermatt">Zermatt</button></td><td>10 月 1 日早</td><td>下午前后</td><td>火车</td><td>约 3 小时起（Excel 参考）</td><td>待查询</td><td>采尔马特无车镇，主线不自驾。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a></td></tr><tr><td><button type="button" class="copy-target" data-copy="Zermatt">Zermatt</button></td><td><button type="button" class="copy-target" data-copy="Milano">Milano</button></td><td>10 月 3 日上午</td><td>下午前后</td><td>火车（经 Visp／Brig）</td><td>以当日班次为准</td><td>待查询</td><td>使用 SBB／Trenitalia 查询；不套用巴塞尔自驾环线。 <a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a><a class="source-ref" href="#source-7" aria-label="查看来源 7">[7]</a></td></tr><tr><td><button type="button" class="copy-target" data-copy="米兰">米兰</button></td><td><button type="button" class="copy-target" data-copy="迪拜 → 曼谷 → 香港">迪拜 → 曼谷 → 香港</button></td><td>10 月 6 日 11:30</td><td>10 月 7 日 18:15 抵港</td><td>飞机</td><td>三段约 6h／6.5h／3h（Excel）</td><td>已订价格未提供</td><td>逐段以航空公司订单、航站楼与行李规则为准。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></td></tr><tr><td><button type="button" class="copy-target" data-copy="巴黎市内">巴黎市内</button></td><td><button type="button" class="copy-target" data-copy="景点区域">景点区域</button></td><td>按预约倒推</td><td>按实时交通</td><td>地铁／步行</td><td>待按酒店确认</td><td>待查询</td><td>使用 RATP 官方工具复核施工、票种和线路。 <a class="source-ref" href="#source-9" aria-label="查看来源 9">[9]</a></td></tr></tbody></table></div></section><section class="guide-section" data-guide-module="budget" id="budget" data-nav-label="预算"><h2>预算与汇率</h2><div class="card table-wrap"><table><thead><tr><th>项目</th><th>估算</th><th>口径</th></tr></thead><tbody><tr><td>餐饮与超市补给（2 人）</td><td>4,900–7,000 CNY</td><td>14 天的保守区间，含瑞士超市补给；不含酒店早餐。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-10" aria-label="查看来源 10">[10]</a></td></tr><tr><td>景点与山地交通（2 人）</td><td>2,600–4,300 CNY</td><td>卢浮宫已购但金额未录；First、马特洪峰、米兰屋顶按实际选项浮动。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-2" aria-label="查看来源 2">[2]</a><a class="source-ref" href="#source-5" aria-label="查看来源 5">[5]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a><a class="source-ref" href="#source-8" aria-label="查看来源 8">[8]</a></td></tr><tr><td>瑞士／意大利城际铁路（2 人）</td><td>2,800–4,700 CNY</td><td>巴黎—Basel 已购 68 CHF，其他段待按当日票价补录。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a><a class="source-ref" href="#source-7" aria-label="查看来源 7">[7]</a></td></tr><tr><td>市内交通与机场接驳（2 人）</td><td>900–1,600 CNY</td><td>受酒店位置、机场和实际票种影响。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-9" aria-label="查看来源 9">[9]</a></td></tr><tr><td>通信、保险与机动</td><td>500–1,200 CNY</td><td>按个人已有保障与购物需求调整。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></td></tr><tr><th>合计</th><th>11,700–18,800 CNY</th><td>人民币估算；不含价格未提供的国际机票与住宿</td></tr></tbody></table><ul><li>本表为两人不含国际机票与住宿的可变支出估算，非报价。</li><li>汇率工具仅供即时换算，购票和刷卡以实际结算为准。</li></ul></div><article class="exchange-tool-card" data-exchange-tool data-exchange-base="CNY" data-exchange-targets="EUR,CHF,AED,THB,HKD"><div class="exchange-tool-card__head"><div><h3>当前汇率参考</h3><p>用于快速换算预算，实际结算汇率及手续费以银行或兑换点为准。</p></div><button type="button" data-exchange-refresh>刷新汇率</button></div><p data-exchange-status>请点击刷新汇率</p><div class="exchange-tool-card__rates"><div data-exchange-rate="EUR">待刷新</div><div data-exchange-rate="CHF">待刷新</div><div data-exchange-rate="AED">待刷新</div><div data-exchange-rate="THB">待刷新</div><div data-exchange-rate="HKD">待刷新</div></div><div class="exchange-tool-card__convert"><label>CNY <input type="number" min="0" value="100" data-exchange-input></label><div class="exchange-tool-card__results"><strong data-exchange-result="EUR">请先刷新汇率</strong><strong data-exchange-result="CHF">请先刷新汇率</strong><strong data-exchange-result="AED">请先刷新汇率</strong><strong data-exchange-result="THB">请先刷新汇率</strong><strong data-exchange-result="HKD">请先刷新汇率</strong></div></div><p class="exchange-tool-card__note"><b>备注：</b>CNY＝人民币；EUR＝欧元；CHF＝瑞士法郎；AED＝阿联酋迪拉姆；THB＝泰铢；HKD＝港币</p><p data-exchange-last-updated>更新时间：尚未获取</p></article></section><section class="guide-section" data-guide-module="recommendations" id="recommendations" data-nav-label="推荐"><h2>行程外推荐与替代方案</h2><div><h3>当地美食</h3><article class="card"><h4><button type="button" class="copy-target" data-copy="巴黎咖啡馆早餐／面包">巴黎咖啡馆早餐／面包</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-10" aria-label="查看来源 10">[10]</a></h4><p>第 5 日保留低强度街区时间，适合选一家就近咖啡馆，而非跨区排队。</p><p><b>适合：</b>9 月 28 日上午或下午；<b>路线关系：</b>圣日耳曼德佩与拉丁区；<b>耗时：</b>45–60 分钟</p><p><b>限制：</b>营业时间与排队情况以现场为准。</p><p><b>替代执行：</b>把它作为休息节点，不与凡尔赛日绑定。</p></article><article class="card"><h4><button type="button" class="copy-target" data-copy="格林德瓦 Coop 山地补给">格林德瓦 Coop 山地补给</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>First 与高山徒步日更需要便携补给。</p><p><b>适合：</b>9 月 29 日晚上；<b>路线关系：</b>格林德瓦火车站周边；<b>耗时：</b>30–45 分钟</p><p><b>限制：</b>注意晚间营业时间。</p><p><b>替代执行：</b>购买水、能量食品和次日早餐，餐厅只作为补充。</p></article><article class="card"><h4><button type="button" class="copy-target" data-copy="Navigli Aperitivo">Navigli Aperitivo</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>适合米兰城市日收尾，体验开胃酒文化。</p><p><b>适合：</b>10 月 4 日傍晚；<b>路线关系：</b>米兰 Navigli 运河区；<b>耗时：</b>1.5–2 小时</p><p><b>限制：</b>各店套餐、服务费和回程交通不同。</p><p><b>替代执行：</b>先确认酒店方向的末班公共交通，不饮酒驾车。</p></article></div><div><h3>其他行程外地点</h3><article class="card"><h4><button type="button" class="copy-target" data-copy="橘园美术馆 Musée de l&#39;Orangerie">橘园美术馆 Musée de l&#39;Orangerie</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>是巴黎低强度雨天备选，与第 5 日街区漫步可互换。</p><p><b>适合：</b>9 月 28 日雨天；<b>路线关系：</b>巴黎市中心；<b>耗时：</b>约 1.5–2 小时</p><p><b>限制：</b>票务、开放日和排队情况须官网核验。</p><p><b>替代执行：</b>只有未安排凡尔赛且预约可用时再加入。</p></article><article class="card"><h4><button type="button" class="copy-target" data-copy="圣米歇尔山与圣马洛">圣米歇尔山与圣马洛</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>Excel 标注为经典 2 日线路，但当前巴黎段仅剩一个机动日。</p><p><b>适合：</b>本次不纳入主线；<b>路线关系：</b>需要单独从巴黎预留至少两天；<b>耗时：</b>2 天</p><p><b>限制：</b>不能压缩成 9 月 28 日一日往返。</p><p><b>替代执行：</b>如要去，需由用户明确增加天数后重排巴黎与瑞士段。</p></article></div><div><h3>特产/伴手礼</h3><article class="card"><h4><button type="button" class="copy-target" data-copy="法国黄油饼干／瑞士巧克力／意大利咖啡与食品">法国黄油饼干／瑞士巧克力／意大利咖啡与食品</button> <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></h4><p>三地均可就近采购，不牺牲观景和交通窗口。</p><p><b>适合：</b>各城市最后一个空闲时段；<b>路线关系：</b>巴黎、格林德瓦、米兰；<b>耗时：</b>30–60 分钟</p><p><b>限制：</b>注意入境、液体和肉奶制品携带规则。</p><p><b>替代执行：</b>优先在机场前完成采购，并保留票据。</p></article></div></section><section class="guide-section" data-guide-module="checklist" id="checklist" data-nav-label="核验清单"><h2>出发前核验清单</h2><div class="guide-checklist-shell" data-checklist="" data-editable="true"><div data-checklist-items><label class="guide-checklist-item" data-check="passport"><input type="checkbox"><span>核验护照有效期、法国／申根签证或入境许可、香港返程及全部联程机票材料。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></span></label><label class="guide-checklist-item" data-check="insurance"><input type="checkbox"><span>确认旅行保险覆盖医疗、行李延误与高海拔活动，并保存紧急联系电话。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></span></label><label class="guide-checklist-item" data-check="louvre"><input type="checkbox"><span>再次核对 9 月 25 日卢浮宫已购票的日期、入馆时段与护照姓名要求。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-2" aria-label="查看来源 2">[2]</a></span></label><label class="guide-checklist-item" data-check="bercy"><input type="checkbox"><span>核验 Les Pavillons de Bercy 导览预约、地址和前往 Cour Saint-Émilion 的路线。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></span></label><label class="guide-checklist-item" data-check="versailles"><input type="checkbox"><span>出发前核验凡尔赛宫预约、花园开放和巴黎往返交通。 <a class="source-ref" href="#source-3" aria-label="查看来源 3">[3]</a><a class="source-ref" href="#source-9" aria-label="查看来源 9">[9]</a></span></label><label class="guide-checklist-item" data-check="rail"><input type="checkbox"><span>保存巴黎—Basel 已购车票，并在 SBB／Trenitalia 核验瑞士及意大利后续班次。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a><a class="source-ref" href="#source-7" aria-label="查看来源 7">[7]</a></span></label><label class="guide-checklist-item" data-check="mountain"><input type="checkbox"><span>First、Bachalpsee、Gelmerbahn（如选择）与马特洪峰活动前查看官方运行状态、摄像头、风况和步道条件。 <a class="source-ref" href="#source-5" aria-label="查看来源 5">[5]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a><a class="source-ref" href="#source-25" aria-label="查看来源 25">[25]</a></span></label><label class="guide-checklist-item" data-check="clothing"><input type="checkbox"><span>准备防水外层、保暖层、防滑鞋、墨镜和防晒；高海拔不按城市温度穿衣。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a></span></label><label class="guide-checklist-item" data-check="payment"><input type="checkbox"><span>准备可境外支付的银行卡、备用信用卡、eSIM／漫游及少量 EUR、CHF 应急现金。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></span></label><label class="guide-checklist-item" data-check="milan-flight"><input type="checkbox"><span>10 月 5 日确认米兰出发机场、航站楼、行李规则、线上值机及次日接驳。 <a class="source-ref" href="#source-1" aria-label="查看来源 1">[1]</a></span></label><label class="guide-checklist-item" data-check="official-alerts"><input type="checkbox"><span>出发前 7 天与每次上山前查看航空、铁路、景区和当地官方公告；公告优先于天气工具。 <a class="source-ref" href="#source-4" aria-label="查看来源 4">[4]</a><a class="source-ref" href="#source-5" aria-label="查看来源 5">[5]</a><a class="source-ref" href="#source-6" aria-label="查看来源 6">[6]</a></span></label></div><!-- Replace 2026-09-24, 2026-10-07 and [{"name":"Paris","label":"巴黎","latitude":48.8566,"longitude":2.3522,"timezone":"Europe/Paris"},{"name":"Grindelwald","label":"格林德瓦","latitude":46.6242,"longitude":8.0414,"timezone":"Europe/Zurich"},{"name":"Zermatt","label":"采尔马特","latitude":46.0207,"longitude":7.7491,"timezone":"Europe/Zurich"},{"name":"Milan","label":"米兰","latitude":45.4642,"longitude":9.19,"timezone":"Europe/Rome"}], then run <skill-root>/scripts/embed-rain-prayer.js on the final HTML. -->
+<section class="guide-weather-card" data-weather-card data-weather-start-date="2026-09-24" data-weather-end-date="2026-10-07" data-weather-days="7" data-rain-threshold="80">
+  <div class="guide-weather-card__head">
+    <div>
+      <h3>出发前 7 天：天气查询</h3>
+      <p>用于临近出发核验体感、降雨、阵风、紫外线和日落；灾害预警及交通公告优先。</p>
+      <div class="guide-weather-status-row">
+        <span class="guide-weather-pill">7 天预报</span>
+        <span class="guide-weather-pill is-waiting" data-weather-data-kind>等待手动刷新</span>
+      </div>
+    </div>
+    <button type="button" data-weather-refresh>刷新天气</button>
+  </div>
+  <p class="guide-weather-status" data-weather-status aria-live="polite">页面首次加载不请求天气。</p>
+  <div class="guide-weather-grid" data-weather-grid></div>
+  <div class="guide-weather-footer">
+    <span><strong>标签含义：</strong>室内备选 / 船班核验表示优先调整或核验，不等于取消行程。</span>
+    <span data-weather-updated-at><strong>数据状态：</strong>等待手动刷新</span>
+    <span><strong>数据来源：</strong>Open‑Meteo（无需 API Key；点击后请求，不上传个人信息）</span>
+  </div>
+  <p class="guide-rain-easter-egg" data-rain-easter-egg hidden>如果下雨怎么办？<a href="#rain-prayer" data-rain-prayer-open>请点击</a></p>
+  <div class="guide-rain-prayer-modal" data-rain-prayer-modal hidden role="dialog" aria-modal="true" aria-label="求雨祈福">
+    <div class="guide-rain-prayer-panel">
+      <button class="guide-rain-prayer-close" data-rain-prayer-close type="button" hidden>关闭</button>
+      <iframe data-rain-prayer-frame sandbox="allow-scripts" title="求雨祈福"></iframe>
+    </div>
+  </div>
+  <script type="application/json" data-weather-locations>[{"name":"Paris","label":"巴黎","latitude":48.8566,"longitude":2.3522,"timezone":"Europe/Paris"},{"name":"Grindelwald","label":"格林德瓦","latitude":46.6242,"longitude":8.0414,"timezone":"Europe/Zurich"},{"name":"Zermatt","label":"采尔马特","latitude":46.0207,"longitude":7.7491,"timezone":"Europe/Zurich"},{"name":"Milan","label":"米兰","latitude":45.4642,"longitude":9.19,"timezone":"Europe/Rome"}]</script>
+  <script type="application/json" data-rain-prayer-source>"\u003c!DOCTYPE html>\n\u003chtml lang=\"zh-CN\">\n\u003chead>\n    \u003cmeta charset=\"UTF-8\">\n    \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover\">\n    \u003ctitle>祈求龙王别下雨 - 预防降雨\u003c/title>\n    \u003cstyle>\n        * {\n            box-sizing: border-box;\n            margin: 0;\n            padding: 0;\n            user-select: none;\n            -webkit-user-select: none;\n            -webkit-touch-callout: none;\n            -webkit-tap-highlight-color: transparent;\n        }\n\n        html, body {\n            width: 100%;\n            height: 100%;\n            overflow: hidden;\n            font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;\n            background: linear-gradient(to bottom, #2b3a42, #3f51b5, #5c6bc0);\n            transition: background 2.5s ease-in-out;\n            position: relative;\n        }\n\n        body.sunny {\n            background: linear-gradient(to bottom, #2980b9, #6dd5fa, #ffffff);\n        }\n\n        /* 预报乌云层 */\n        .cloud-layer {\n            position: absolute;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100%;\n            pointer-events: none;\n            z-index: 1;\n            transition: opacity 2s ease;\n        }\n\n        .cloud {\n            position: absolute;\n            background: rgba(200, 210, 225, 0.25);\n            border-radius: 100px;\n            animation: moveCloud 20s linear infinite;\n        }\n\n        .cloud::before, .cloud::after {\n            content: '';\n            position: absolute;\n            background: rgba(200, 210, 225, 0.25);\n            border-radius: 50%;\n        }\n\n        .cloud1 { width: 200px; height: 60px; top: 10%; left: -50px; }\n        .cloud1::before { width: 80px; height: 80px; top: -30px; left: 40px; }\n        .cloud1::after { width: 100px; height: 100px; top: -50px; left: 80px; }\n\n        .cloud2 { width: 250px; height: 70px; top: 25%; right: -80px; animation-duration: 28s; }\n        .cloud2::before { width: 90px; height: 90px; top: -40px; left: 50px; }\n        .cloud2::after { width: 110px; height: 110px; top: -50px; left: 100px; }\n\n        @keyframes moveCloud {\n            0% { transform: translateX(0); }\n            50% { transform: translateX(50px); }\n            100% { transform: translateX(0); }\n        }\n\n        body.sunny .cloud-layer {\n            opacity: 0.1;\n        }\r\n\r\n        /* 雨点会随祈雨进度逐步减少并缩短 */\r\n        .rain-layer { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1; opacity:1; transition:opacity .28s ease; }\r\n        .rain-drop { position:absolute; top:-44px; width:2px; height:26px; border-radius:2px; background:linear-gradient(to bottom,rgba(212,239,255,.25),rgba(158,218,255,.94)); box-shadow:0 0 4px rgba(176,228,255,.36); transform:rotate(12deg); animation:rainFall .95s linear infinite; will-change:transform,height,opacity; }\r\n        @keyframes rainFall { to { transform:translate3d(58px,125vh,0) rotate(12deg); } }\r\n        body.sunny .rain-layer { opacity:0; }\n\n        /* 太阳特效 */\n        .sun {\n            position: absolute;\n            top: -100px;\n            right: -100px;\n            width: 260px;\n            height: 260px;\n            background: radial-gradient(circle, #ffe066 0%, #f39c12 60%, transparent 80%);\n            border-radius: 50%;\n            opacity: 0;\n            transition: opacity 3s ease, transform 3s ease;\n            z-index: 1;\n            pointer-events: none;\n        }\n\n        body.sunny .sun {\n            opacity: 1;\n            transform: translate(-30px, 50px);\n        }\n\n        /* 主容器布局适配 */\n        .app-container {\n            position: relative;\n            z-index: 2;\n            width: 100%;\n            height: 100%;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-between;\n            align-items: center;\n            padding: calc(env(safe-area-inset-top) + 12px) 16px calc(env(safe-area-inset-bottom) + 16px) 16px;\n        }\n\n        /* 天气预报警示横幅 */\n        .weather-alert {\n            background: rgba(231, 76, 60, 0.85);\n            color: #fff;\n            padding: 4px 12px;\n            border-radius: 20px;\n            font-size: 11px;\n            font-weight: bold;\n            margin-bottom: 6px;\n            display: inline-block;\n            box-shadow: 0 2px 6px rgba(0,0,0,0.2);\n            transition: background 1s ease;\n        }\n\n        body.sunny .weather-alert {\n            background: rgba(46, 204, 113, 0.9);\n        }\n\n        /* 顶部看板 */\n        .header-panel {\n            width: 100%;\n            max-width: 400px;\n            background: rgba(255, 255, 255, 0.9);\n            backdrop-filter: blur(8px);\n            -webkit-backdrop-filter: blur(8px);\n            padding: 12px 18px;\n            border-radius: 18px;\n            box-shadow: 0 8px 24px rgba(0,0,0,0.2);\n            text-align: center;\n            border: 2px solid #e0c38c;\n        }\n\n        .title {\n            font-size: 18px;\n            font-weight: 800;\n            color: #332314;\n            letter-spacing: 0.5px;\n        }\n\n        .status-row {\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n            margin-top: 8px;\n            font-size: 13px;\n            color: #555;\n            font-weight: 600;\n        }\n\n        .score-num {\n            color: #d35400;\n            font-size: 16px;\n            font-weight: 800;\n        }\n\n        /* 进度条 */\n        .progress-box {\n            width: 100%;\n            height: 12px;\n            background: #e2e8f0;\n            border-radius: 6px;\n            margin-top: 8px;\n            overflow: hidden;\n            border: 1px solid #cbd5e1;\n            position: relative;\n        }\n\n        .progress-bar {\n            width: 0%;\n            height: 100%;\n            background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);\n            border-radius: 6px;\n            transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);\n        }\n\n        /* 龙王浮动区域 */\n        .dragon-area {\n            position: relative;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            margin-top: -10px;\n        }\n\n        .dragon-svg {\n            width: min(48vw, 190px);\n            height: auto;\n            animation: float 3.5s ease-in-out infinite;\n            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));\n        }\n\n        @keyframes float {\n            0%, 100% { transform: translateY(0px) rotate(0deg); }\n            50% { transform: translateY(-10px) rotate(1deg); }\n        }\n\n        /* 对话框 */\n        .dialog-box {\n            position: relative;\n            background: #ffffff;\n            padding: 8px 16px;\n            border-radius: 16px;\n            font-size: 13px;\n            font-weight: bold;\n            color: #2c3e50;\n            text-align: center;\n            box-shadow: 0 4px 12px rgba(0,0,0,0.15);\n            border: 2px solid #56ccf2;\n            margin-bottom: 6px;\n            max-width: 270px;\n            line-height: 1.3;\n        }\n\n        .dialog-box::after {\n            content: '';\n            position: absolute;\n            bottom: -7px;\n            left: 50%;\n            transform: translateX(-50%);\n            border-width: 7px 7px 0;\n            border-style: solid;\n            border-color: #ffffff transparent;\n        }\n\n        /* 祈福案台与小人区域 */\n        .shrine-area {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            width: 100%;\n            max-width: 320px;\n            position: relative;\n        }\n\n        /* 案台 */\n        .altar {\n            width: 150px;\n            height: 40px;\n            background: #9b2c2c;\n            border-radius: 8px 8px 0 0;\n            border-top: 4px solid #f6e05e;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            color: #fff;\n            font-size: 13px;\n            font-weight: bold;\n            letter-spacing: 2px;\n            box-shadow: 0 4px 10px rgba(0,0,0,0.25);\n            position: relative;\n            z-index: 2;\n        }\n\n        .incense-burner {\n            position: absolute;\n            top: -18px;\n            font-size: 20px;\n        }\n\n        /* 点击磕头的小人容器 */\n        .person-container {\n            cursor: pointer;\n            position: relative;\n            margin-top: -8px;\n            z-index: 3;\n            touch-action: manipulation;\n        }\n\n        .person-svg {\n            width: min(38vw, 150px);\n            height: auto;\n            display: block;\n        }\n\n        /* 提示点击指引 */\n        .click-tip {\n            position: absolute;\n            bottom: -8px;\n            left: 50%;\n            transform: translateX(-50%);\n            background: rgba(0, 0, 0, 0.7);\n            color: #fff;\n            padding: 4px 12px;\n            border-radius: 20px;\n            font-size: 12px;\n            white-space: nowrap;\n            pointer-events: none;\n            box-shadow: 0 2px 6px rgba(0,0,0,0.2);\n            animation: pulse 1.5s infinite;\n        }\n\n        @keyframes pulse {\n            0%, 100% { opacity: 0.85; transform: translateX(-50%) scale(1); }\n            50% { opacity: 1; transform: translateX(-50%) scale(1.05); }\n        }\n\n        /* SVG 动画绑定 */\n        .head-group {\n            transform-origin: 65px 70px;\n            transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1);\n        }\n\n        .body-group {\n            transform-origin: 65px 95px;\n            transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1);\n        }\n\n        /* 磕头触发动作 */\n        .kowtow .head-group {\n            transform: rotate(50deg) translate(18px, 18px);\n        }\n\n        .kowtow .body-group {\n            transform: rotate(25deg) translate(8px, 6px);\n        }\n\n        /* 浮动提示词效果 */\n        .float-text {\n            position: absolute;\n            font-weight: 900;\n            color: #f6e05e;\n            font-size: 18px;\n            pointer-events: none;\n            animation: floatUp 0.75s ease-out forwards;\n            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);\n            z-index: 99;\n        }\n\n        @keyframes floatUp {\n            0% { opacity: 1; transform: translateY(0) scale(1); }\n            100% { opacity: 0; transform: translateY(-55px) scale(1.25); }\n        }\n    \u003c/style>\n\u003c/head>\n\u003cbody>\n\n    \u003c!-- 预报乌云层（不带下雨特效） -->\n    \u003cdiv class=\"cloud-layer\">\n        \u003cdiv class=\"cloud cloud1\">\u003c/div>\n        \u003cdiv class=\"cloud cloud2\">\u003c/div>\n    \u003c/div>\r\n    \u003cdiv class=\"rain-layer\" id=\"rainLayer\" aria-hidden=\"true\">\u003c/div>\n    \u003cdiv class=\"sun\">\u003c/div>\n\n    \u003cdiv class=\"app-container\">\n        \u003c!-- 顶部信息面板 -->\n        \u003cdiv class=\"header-panel\">\n            \u003cdiv class=\"weather-alert\" id=\"weatherAlert\">⚠️ 天气预报：稍后有大到暴雨\u003c/div>\n            \u003cdiv class=\"title\" id=\"mainTitle\">🙏 赶在下雨前祈求龙王别布雨\u003c/div>\n            \u003cdiv class=\"status-row\">\n                \u003cspan>防雨诚意进度\u003c/span>\n                \u003cspan>\u003cspan class=\"score-num\" id=\"score\">0\u003c/span> / 100\u003c/span>\n            \u003c/div>\n            \u003cdiv class=\"progress-box\">\n                \u003cdiv class=\"progress-bar\" id=\"progressBar\">\u003c/div>\n            \u003c/div>\n        \u003c/div>\n\n        \u003c!-- 龙王形象与动态对话 -->\n        \u003cdiv class=\"dragon-area\">\n            \u003cdiv class=\"dialog-box\" id=\"dragonDialog\">天气预报说得对，本王正准备降雨！\u003c/div>\n            \u003csvg class=\"dragon-svg\" viewBox=\"0 0 200 200\">\n                \u003cpath d=\"M 30 150 Q 90 180 150 150 Q 180 130 150 110 Q 90 130 30 110 Z\" fill=\"#ffffff\" opacity=\"0.85\"/>\n                \u003cpath d=\"M 50 110 Q 100 50 150 110 Q 100 145 50 110\" fill=\"#27ae60\" stroke=\"#1e8449\" stroke-width=\"4\"/>\n                \u003cpath d=\"M 80 48 L 70 28 M 80 43 L 90 28\" stroke=\"#f1c40f\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n                \u003cpath d=\"M 120 48 L 110 28 M 120 43 L 130 28\" stroke=\"#f1c40f\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n                \u003ccircle cx=\"100\" cy=\"68\" r=\"34\" fill=\"#27ae60\" stroke=\"#1e8449\" stroke-width=\"4\"/>\n                \u003ccircle cx=\"87\" cy=\"63\" r=\"6\" fill=\"#fff\"/>\n                \u003ccircle cx=\"87\" cy=\"63\" r=\"3\" fill=\"#000\"/>\n                \u003ccircle cx=\"113\" cy=\"63\" r=\"6\" fill=\"#fff\"/>\n                \u003ccircle cx=\"113\" cy=\"63\" r=\"3\" fill=\"#000\"/>\n                \u003cpath d=\"M 75 73 Q 48 78 38 88\" fill=\"none\" stroke=\"#f1c40f\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                \u003cpath d=\"M 125 73 Q 152 78 162 88\" fill=\"none\" stroke=\"#f1c40f\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                \u003cpath d=\"M 90 78 Q 100 88 110 78\" fill=\"none\" stroke=\"#1e8449\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n            \u003c/svg>\n        \u003c/div>\n\n        \u003c!-- 祈福案台与磕头小人 -->\n        \u003cdiv class=\"shrine-area\">\n            \u003cdiv class=\"altar\">\n                \u003cdiv class=\"incense-burner\">🕯️\u003c/div>\n                祈求无雨\n            \u003c/div>\n\n            \u003c!-- 可点击的磕头小人 -->\n            \u003cdiv class=\"person-container\" id=\"personBtn\">\n                \u003csvg class=\"person-svg\" id=\"personSvg\" viewBox=\"0 0 140 130\">\n                    \u003cpath d=\"M 35 110 Q 65 125 95 110 Q 100 100 90 95 Q 65 105 40 95 Z\" fill=\"#2980b9\"/>\n                    \n                    \u003cg class=\"body-group\">\n                        \u003cpath d=\"M 45 70 L 85 70 L 88 100 L 42 100 Z\" fill=\"#3498db\"/>\n                        \u003ccircle cx=\"78\" cy=\"80\" r=\"6\" fill=\"#f3a683\"/>\n                    \u003c/g>\n\n                    \u003cg class=\"head-group\">\n                        \u003ccircle cx=\"65\" cy=\"55\" r=\"16\" fill=\"#f3a683\"/>\n                        \u003cpath d=\"M 68 53 Q 72 57 74 53\" fill=\"none\" stroke=\"#444\" stroke-width=\"2\"/>\n                        \u003cpath d=\"M 32 48 L 65 22 L 98 48 Z\" fill=\"#e67e22\"/>\n                    \u003c/g>\n                \u003c/svg>\n                \u003cdiv class=\"click-tip\" id=\"clickTip\">👉 点击小人 预先防雨 👈\u003c/div>\n            \u003c/div>\n        \u003c/div>\n    \u003c/div>\n\n    \u003cscript>\n        let count = 0;\n        const targetCount = 100;\n        const personBtn = document.getElementById('personBtn');\n        const personSvg = document.getElementById('personSvg');\n        const scoreEl = document.getElementById('score');\n        const progressBar = document.getElementById('progressBar');\n        const dragonDialog = document.getElementById('dragonDialog');\n        const mainTitle = document.getElementById('mainTitle');\n        const weatherAlert = document.getElementById('weatherAlert');\n        const clickTip = document.getElementById('clickTip');\n\n        const rainLayer = document.getElementById(\"rainLayer\");\r\n        const rainDrops = [];\r\n        const rainDropTotal = window.matchMedia(\"(max-width: 480px)\").matches ? 48 : 64;\r\n        function initRain() {\r\n            for (let i = 0; i \u003c rainDropTotal; i++) {\r\n                const drop = document.createElement(\"i\");\r\n                drop.className = \"rain-drop\";\r\n                drop.style.left = (Math.random() * 104 - 4) + \"%\";\r\n                drop.style.animationDelay = (-Math.random() * 1.3) + \"s\";\r\n                drop.style.animationDuration = (0.56 + Math.random() * 0.62) + \"s\";\r\n                rainLayer.appendChild(drop);\r\n                rainDrops.push(drop);\r\n            }\r\n        }\r\n        function updateRain() {\r\n            const remaining = Math.max(0, 1 - count / targetCount);\r\n            const activeDrops = Math.ceil(rainDropTotal * remaining);\r\n            rainLayer.style.opacity = String(remaining);\r\n            rainDrops.forEach((drop, index) => {\r\n                const visible = index \u003c activeDrops;\r\n                drop.hidden = !visible;\r\n                drop.style.height = (8 + remaining * 20) + \"px\";\r\n                drop.style.animationDuration = (0.62 + remaining * 0.55) + \"s\";\r\n            });\r\n            if (remaining === 0) rainLayer.hidden = true;\r\n        }\r\n        initRain();\r\n        updateRain();\r\n\r\n        // 阶段性龙王预报台词\n        function getDragonSaying(val) {\n            if (val \u003c 15) return \"本王法宝已准备就绪，待会就下雨！\";\n            if (val \u003c 35) return \"看你提早来求，本王犹豫一下...\";\n            if (val \u003c 60) return \"诚意挺足，雨云正在缓缓撤退！\";\n            if (val \u003c 85) return \"这雨看来是不必下了，再加把劲！\";\n            if (val \u003c 100) return \"最后几个！本王取消今天的降雨安排！\";\n            return \"☀️ 预报改写！今日取消降雨，转为晴天！\";\n        }\n\n        function handleKowtow(e) {\n            if (count >= targetCount) return;\n\n            personSvg.classList.add('kowtow');\n            setTimeout(() => {\n                personSvg.classList.remove('kowtow');\n            }, 120);\n\n            count++;\r\n            updateRain();\n            scoreEl.innerText = count;\n\n            let progress = (count / targetCount) * 100;\n            progressBar.style.width = progress + '%';\n\n            dragonDialog.innerText = getDragonSaying(count);\n\n            let clientX = e.clientX;\n            let clientY = e.clientY;\n            if (e.touches && e.touches.length > 0) {\n                clientX = e.touches[0].clientX;\n                clientY = e.touches[0].clientY;\n            } else if (!clientX) {\n                const rect = personBtn.getBoundingClientRect();\n                clientX = rect.left + rect.width / 2;\n                clientY = rect.top;\n            }\n\n            showFloatText(clientX, clientY);\n\n            if (count >= targetCount) {\n                triggerSunnyDay();\n            }\n        }\n\n        const words = [\"诚意+1\", \"别下雨！\", \"功德+1\", \"预报取消\", \"求晴天\"];\n        function showFloatText(x, y) {\n            const el = document.createElement('div');\n            el.className = 'float-text';\n            el.innerText = words[Math.floor(Math.random() * words.length)];\n            \n            const offsetX = (Math.random() - 0.5) * 40;\n            el.style.left = (x + offsetX - 30) + 'px';\n            el.style.top = (y - 40) + 'px';\n\n            document.body.appendChild(el);\n            setTimeout(() => el.remove(), 700);\n        }\n\n        function triggerSunnyDay() {\n            document.body.classList.add('sunny');\r\n            updateRain();\n            weatherAlert.innerText = \"✅ 最新预报：降雨概率 0%，大晴天\";\n            mainTitle.innerText = \"☀️ 成功拦截！今天不下雨啦！\";\n            clickTip.innerText = \"龙王已收回雨云，出门放心！\";\n            clickTip.style.animation = \"none\";\n            clickTip.style.background = \"rgba(46, 204, 113, 0.85)\";\r\n            try { window.parent.postMessage({ type: \"rain-prayer-complete\" }, \"*\"); } catch (_error) {}\n        }\n\n        let isTouched = false;\n        personBtn.addEventListener('touchstart', (e) => {\n            isTouched = true;\n            handleKowtow(e);\n        }, { passive: true });\n\n        personBtn.addEventListener('click', (e) => {\n            if (isTouched) {\n                isTouched = false;\n                return;\n            }\n            handleKowtow(e);\n        });\n    \u003c/script>\n\u003c/body>\n\u003c/html>"</script>
+</section><p class="local-note">勾选、编辑和新增内容仅保存在当前浏览器，不会上传。</p></div></section><section class="guide-section" data-guide-module="sources" id="sources" data-nav-label="资料来源"><h2>资料来源</h2><p class="local-note">全部来源按编号 1–25 排序；其中已读取小红书笔记 14 篇。</p><div data-source-group="xiaohongshu" data-xhs-required-count="10" data-xhs-read-count="14"><ol class="source-list"><li id="source-1">用户提供：00工作簿1.xlsx<span>主资料；读取至表格末尾，末段“2026/10/6-7”拆分为 10 月 6 日与 10 月 7 日两张行程卡。</span></li><li id="source-2"><a href="https://www.louvre.fr/en/visit/hours-admission/tickets-and-prices" target="_blank" rel="noopener noreferrer">卢浮宫官方预约与参观信息</a><span>官方渠道；出发前再次复核。</span></li><li id="source-3"><a href="https://en.chateauversailles.fr/" target="_blank" rel="noopener noreferrer">凡尔赛宫官方网站</a><span>官方渠道；出发前再次复核。</span></li><li id="source-4"><a href="https://www.sbb.ch/en" target="_blank" rel="noopener noreferrer">SBB 瑞士联邦铁路</a><span>官方渠道；具体班次与站台以出行日为准。</span></li><li id="source-5"><a href="https://www.jungfrau.ch/en-gb/" target="_blank" rel="noopener noreferrer">Jungfrau Railways 官方网站</a><span>官方渠道；高山活动需按当日运行状态判断。</span></li><li id="source-6"><a href="https://www.matterhornparadise.ch/en" target="_blank" rel="noopener noreferrer">Matterhorn Paradise 官方网站</a><span>官方渠道；不以静态攻略替代天气／摄像头。</span></li><li id="source-7"><a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener noreferrer">Trenitalia 官方网站</a><span>官方渠道；跨境票和班次需出发前复核。</span></li><li id="source-8"><a href="https://www.duomomilano.it/en/" target="_blank" rel="noopener noreferrer">米兰大教堂官方票务与参观信息</a><span>官方渠道；登顶与安全检查以预约日为准。</span></li><li id="source-9"><a href="https://www.ratp.fr/en/visiting-paris/travelers-guide" target="_blank" rel="noopener noreferrer">RATP 巴黎公共交通游客指南</a><span>官方渠道；施工与票种随时可能调整。</span></li><li id="source-10"><a href="https://www.xiaohongshu.com/search_result/6a39239b0000000016024c03?xsec_token=AB2EHhlEcmqZ2Ji16raY8hoolPbPCWDcEFcsjmRLe8kA4=&amp;xsec_source=pc_search" target="_blank" rel="noopener noreferrer">小红书：直观一张图看懂瑞士法国意大利路线怎么走</a><span>已读取公开正文；仅用于路线节奏和天气机动提示，不替代官方票务信息。</span></li><li id="source-11"><a href="https://344206052-cmd.github.io/switzerland-2026-travel-guide/italy-switzerland-france-2026-travel-guide.html?v=ec7ef6b" target="_blank" rel="noopener noreferrer">用户指定参考攻略页面</a><span>用于章节与交互对比，不作为本次日期与票务依据。</span></li><li id="source-12"><a href="https://www.xiaohongshu.com/search_result/6a6e36150000000027023a19?xsec_token=ABp_z9MseGOzqYnZTEhqaTHHcK-7Wl-9nv4yXA1Aktozw=" target="_blank" rel="noopener noreferrer">小红书：瑞士四天三晚极限打卡</a><span>已读取公开正文；First 与徒步经验仅作节奏参考。</span></li><li id="source-13"><a href="https://www.xiaohongshu.com/search_result/6a732e4100000000330346d3?xsec_token=ABrcEmP3aRPAbLfJg5117Fgc8eWNFKXBfMyy8v9Vd4g-w=" target="_blank" rel="noopener noreferrer">小红书：15天瑞士意大利行程·上｜超精华略特种兵版</a><span>已读取公开正文；时间和票价不作为本行程承诺。</span></li><li id="source-14"><a href="https://www.xiaohongshu.com/search_result/69fff4c200000000070272a5?xsec_token=AB8u9Dlnbjo5f718wq87l3wYTtYNquSuilR78oxekLef0=" target="_blank" rel="noopener noreferrer">小红书：采尔马特，拉完了</a><span>已读取公开正文；个人体验用于强化晴天优先与天气备选。</span></li><li id="source-15"><a href="https://www.xiaohongshu.com/search_result/6a59ecaf000000000f02b4a4?xsec_token=ABGvJyXg5ZWB1OnOJ9-rDASgZiM19HRT0BBeafox037Ds=" target="_blank" rel="noopener noreferrer">小红书：最全的采尔马特出行攻略</a><span>已读取公开正文；天气与山地交通仍由官方来源最终核验。</span></li><li id="source-16"><a href="https://www.xiaohongshu.com/search_result/6a684c40000000000f00400d?xsec_token=ABbo0mbJ5iy4sG0feYNtk6-YHthybiWJtlFWt8sYQZH1s=" target="_blank" rel="noopener noreferrer">小红书：瑞士采尔马特坐火车去米兰｜欧铁通票实测</a><span>已读取公开正文；用于提示换乘缓冲与意大利段订座，实际班次须官方复核。</span></li><li id="source-17"><a href="https://www.xiaohongshu.com/search_result/691b78ec00000000040124d9?xsec_token=ABPoy7Y1Qvnek_tqVcvTGWS9OHPej_TiqOfznLSLS1vcU=" target="_blank" rel="noopener noreferrer">小红书：意瑞法葡西33天自由行路线</a><span>已读取公开正文；用于预约前置与节奏线索。</span></li><li id="source-18"><a href="https://www.xiaohongshu.com/search_result/6a74da40000000002500bd9c?xsec_token=ABA491oeErEgh71yVoUYZYhS0zPs-eF0jVc50yhu8P6X8=" target="_blank" rel="noopener noreferrer">小红书：法国自由行，这几个 App 一定要提前下</a><span>已读取公开正文；App 建议需结合官方渠道使用。</span></li><li id="source-19"><a href="https://www.xiaohongshu.com/search_result/6a09edb50000000006033502?xsec_token=AB0bS57oGNHULBtjWcaeVVWJPE82IGAtl8zJ6bXKJRRW0=" target="_blank" rel="noopener noreferrer">小红书：意大利法国火车订票</a><span>已读取公开正文；铁路票价、座位和退改须官方复核。</span></li><li id="source-20"><a href="https://www.xiaohongshu.com/search_result/6a717bb00000000005030477?xsec_token=ABAKafeV7tteQgNMcTYnUeInCzXqZqAI3Y3cIEh_qmzlY=" target="_blank" rel="noopener noreferrer">小红书：巴黎火车到瑞士，瑞士通票</a><span>已读取公开正文；巴黎里昂站和换乘经验仅作行前提示。</span></li><li id="source-21"><a href="https://www.xiaohongshu.com/search_result/6a767dc6000000002501394d?xsec_token=ABnYJGFVQtrhMO0j2a1TDPl8EoYHYqyOETbNxVigsgrhU=" target="_blank" rel="noopener noreferrer">小红书：一文带你无障碍出行巴黎｜附买票教程</a><span>已读取公开正文；票价与票种只作线索，须 RATP／IDFM 官方复核。</span></li><li id="source-22"><a href="https://www.xiaohongshu.com/search_result/6a6038bc000000001101e032?xsec_token=ABVYdmFJu6rsEa110aC1ViljZh0hyW-AKTjtZKNNj4wSQ=" target="_blank" rel="noopener noreferrer">小红书：实测巴黎戴高乐机场去市区买票攻略</a><span>已读取公开正文；行李与站内步行体验只作备选依据。</span></li><li id="source-23"><a href="https://www.xiaohongshu.com/search_result/6a2feaa0000000000702a7ee?xsec_token=ABChQ9wubeiNnYzsFmAhMqzvLYOKtxBqsu5PbiBR6uf3k=" target="_blank" rel="noopener noreferrer">小红书：巴黎戴高乐机场去市区交通不要坐火车啊</a><span>已读取公开正文；作为与 RER 方案对照的个人经验，不替代官方交通建议。</span></li><li id="source-24"><a href="https://www.xiaohongshu.com/explore/6a683b1f000000001f01f638?xsec_token=CBJqAJW-hl5Lb1jANj0h5wgG6AxhOYrQPvKfTEvFIIN1Y=" target="_blank" rel="noopener noreferrer">小红书：17岁的某一天 我坐上了真正的过山车</a><span>用户提供并已读取公开正文；作为独立山地活动线索，不替代运营信息。</span></li><li id="source-25"><a href="https://www.meiringen.ch/freizeit/5803" target="_blank" rel="noopener noreferrer">Meiringen 官方：Gelmerbahn</a><span>官方介绍确认 106% 坡度、通往 Gelmersee；日期、时刻和票务仍须出发前复核。</span></li></ol></div></section></main><button id="guide-search-trigger" class="guide-search-trigger" type="button" aria-controls="guide-search-panel" aria-expanded="false">搜索攻略</button><aside id="guide-search-panel" class="guide-search-panel" hidden aria-labelledby="guide-search-title"><div class="guide-search-head"><strong id="guide-search-title">搜索攻略</strong><button id="guide-search-close" class="guide-search-close" type="button" aria-label="关闭搜索">×</button></div><form id="guide-search-form" class="guide-search-form" role="search"><input id="guide-search-input" type="search" autocomplete="off" placeholder="输入关键词" aria-label="搜索攻略关键词"><button id="guide-search-clear" class="guide-search-clear" type="button">清空</button><button class="guide-search-submit" type="submit">搜索</button><button id="guide-search-advanced" class="guide-search-advanced" type="button">高级搜索</button></form><div class="guide-search-navigation"><button id="guide-search-prev" type="button" disabled>上一个</button><span id="guide-search-count">0 / 0</span><button id="guide-search-next" type="button" disabled>下一个</button></div><div id="guide-search-results" class="guide-search-results" aria-live="polite"><p class="guide-search-hint"><span>普通搜索精确匹配攻略正文；</span><span>高级搜索模糊匹配资料来源。</span></p></div></aside><script id="travel-source-index" type="application/json">[{"sourceId":1,"title":"用户 Excel 主行程","cities":["巴黎","格林德瓦","采尔马特","米兰"],"tags":["已购票务","航班","日期"],"summary":"本攻略的日期、硬约束和用户偏好来源。"},{"sourceId":4,"title":"SBB","cities":["巴塞尔","格林德瓦","采尔马特"],"tags":["火车","换乘","实时班次"],"summary":"瑞士段实时班次与站台核验。"},{"sourceId":6,"title":"Matterhorn Paradise","cities":["采尔马特"],"tags":["马特洪峰","天气","缆车"],"summary":"马特洪峰天气和山地交通核验。"},{"sourceId":10,"title":"小红书路线笔记","cities":["巴黎","格林德瓦","采尔马特","米兰"],"tags":["路线节奏","火车","机动日"],"summary":"用于火车主线与山区天气缓冲的参考。"},{"sourceId":24,"title":"盖尔默登山铁路体验笔记","cities":["Meiringen","Handegg"],"tags":["Gelmerbahn","过山车","山地活动"],"summary":"第 7 日的独立替代方案；不与 First＋Bachalpsee 同日叠加。"}]</script><footer class="guide-section"><p>该地图或定位服务可能受网络环境、访问额度或服务策略影响；若加载失败，请切换网络或稍后重试。</p></footer><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>/* travel-guide-interactions: v9 */
+(function initTravelGuideInteractions(global) {
+  "use strict";
+
+  const text = (value) => String(value || "").trim();
+  const normalize = (value) => text(value).toLowerCase().replace(/\s+/g, " ");
+  const escapeHtml = (value) => text(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+
+  const chineseTerms = (query) => {
+    const normalized = normalize(query);
+    const segments = normalized.match(/[\u4e00-\u9fff]+/g) || [];
+    const pairs = segments.flatMap((segment) => [...segment].map((_, index) => segment.slice(index, index + 2)).filter((item) => item.length === 2));
+    return [...new Set(normalized.split(" ").filter(Boolean).concat(segments, pairs))].sort((a, b) => b.length - a.length);
+  };
+
+  function initSourceLinks(options = {}) {
+    const root = options.root || document;
+    const activeClass = options.activeClass || "source-flash";
+    const duration = options.duration || 2000;
+    let active = null;
+    let timer = null;
+    root.addEventListener("click", (event) => {
+      const link = event.target.closest('a[href^="#source-"]');
+      if (!link) return;
+      const target = root.querySelector(link.getAttribute("href"));
+      if (!target) return;
+      event.preventDefault();
+      if (active === target) {
+        clearTimeout(timer);
+        target.classList.remove(activeClass);
+        active = null;
+        return;
+      }
+      active?.classList.remove(activeClass);
+      clearTimeout(timer);
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      target.classList.add(activeClass);
+      active = target;
+      timer = setTimeout(() => {
+        target.classList.remove(activeClass);
+        if (active === target) active = null;
+      }, duration);
+    });
+  }
+
+  function readJsonIndex(selector, root = document) {
+    const script = root.querySelector(selector);
+    if (!script) return [];
+    try { return JSON.parse(script.textContent || "[]"); } catch (_error) { return []; }
+  }
+
+  function initSearch(options = {}) {
+    const root = options.root || document;
+    const selectors = Object.assign({
+      trigger: "#guide-search-trigger", panel: "#guide-search-panel", close: "#guide-search-close",
+      clear: "#guide-search-clear", form: "#guide-search-form", input: "#guide-search-input",
+      results: "#guide-search-results", previous: "#guide-search-prev", next: "#guide-search-next",
+      count: "#guide-search-count", advanced: "#guide-search-advanced", index: "#travel-source-index"
+    }, options.selectors || {});
+    const el = Object.fromEntries(Object.entries(selectors).map(([key, selector]) => [key, root.querySelector(selector)]));
+    if (!el.trigger || !el.panel || !el.form || !el.input || !el.results) return;
+    const sourceIndex = options.sourceIndex || readJsonIndex(selectors.index, root);
+    let hits = [];
+    let current = -1;
+    let inputTimer = null;
+    const setNavigation = () => {
+      if (el.count) el.count.textContent = hits.length ? `${current + 1} / ${hits.length}` : "0 / 0";
+      if (el.previous) el.previous.disabled = !hits.length;
+      if (el.next) el.next.disabled = !hits.length;
+    };
+    const clearMarks = () => {
+      const parents = new Set();
+      root.querySelectorAll("mark.guide-search-hit").forEach((mark) => {
+        if (mark.parentNode) parents.add(mark.parentNode);
+        mark.replaceWith(document.createTextNode(mark.textContent || ""));
+      });
+      parents.forEach((parent) => parent.normalize?.());
+      hits = []; current = -1;
+      setNavigation();
+    };
+    const focus = (index) => {
+      if (!hits.length) return;
+      current = (index + hits.length) % hits.length;
+      hits.forEach((mark, i) => mark.classList.toggle("is-current", i === current));
+      setNavigation();
+      hits[current].scrollIntoView({ behavior: "smooth", block: "center" });
+    };
+    const markBody = (query) => {
+      clearMarks();
+      const term = text(query).toLowerCase();
+      if (!term) return 0;
+      const walker = root.createTreeWalker(root.body || root, NodeFilter.SHOW_TEXT, { acceptNode(node) {
+        return node.parentElement?.closest("#guide-search-panel,#guide-search-trigger,#sources,[data-guide-module='sources'],script,style,input,textarea,select,template,[hidden],[aria-hidden='true'],dialog:not([open])") || !text(node.nodeValue)
+          ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }});
+      const nodes = []; let node;
+      while ((node = walker.nextNode())) nodes.push(node);
+      nodes.forEach((node) => {
+        const source = node.nodeValue || "";
+        const lower = source.toLowerCase();
+        let cursor = 0; let changed = false; const fragment = document.createDocumentFragment();
+        while (cursor < source.length) {
+          const found = lower.indexOf(term, cursor);
+          if (found < 0) { fragment.append(document.createTextNode(source.slice(cursor))); break; }
+          if (found > cursor) fragment.append(document.createTextNode(source.slice(cursor, found)));
+          const mark = document.createElement("mark");
+          mark.className = "guide-search-hit";
+          mark.textContent = source.slice(found, found + term.length);
+          fragment.append(mark); hits.push(mark); changed = true; cursor = found + term.length;
+        }
+        if (changed) node.replaceWith(fragment);
+      });
+      if (hits.length) focus(0);
+      return hits.length;
+    };
+    const sourceMatches = (query) => {
+      const terms = chineseTerms(query);
+      return sourceIndex.map((item) => {
+        const sourceId = item.sourceId ?? item.number;
+        const title = normalize(item.title);
+        const cities = normalize([...(item.cities || []), item.city, item.place].join(" "));
+        const tags = normalize((item.tags || []).join(" "));
+        const score = terms.reduce((total, term) => total + (title.includes(term) ? 5 : 0) + (cities.includes(term) ? 3 : 0) + (tags.includes(term) ? 2 : 0), 0);
+        return { ...item, sourceId, score };
+      }).filter((item) => Number.isInteger(Number(item.sourceId)) && item.score > 0).sort((a, b) => b.score - a.score).slice(0, 8);
+    };
+    const showDefault = () => {
+      el.results.innerHTML = '<p class="guide-search-hint"><span>普通搜索精确匹配攻略正文；</span><span>高级搜索模糊匹配资料来源。</span></p>';
+    };
+    const renderBody = () => {
+      const query = text(el.input.value);
+      if (!query) { clearMarks(); showDefault(); return; }
+      const count = markBody(query);
+      if (count) { el.results.innerHTML = `<p class="guide-search-hint">正文命中 ${count} 处，已定位首个结果。</p>`; return; }
+      el.results.innerHTML = `<p class="guide-search-empty">攻略正文未找到“${escapeHtml(query)}”。可点击“高级搜索”查询资料来源。</p>`;
+    };
+    const renderSources = () => {
+      const query = text(el.input.value);
+      clearMarks();
+      if (!query) { showDefault(); return; }
+      if (!sourceIndex.length) { el.results.innerHTML = '<p class="guide-search-empty">本攻略未建立可用的资料来源索引。</p>'; return; }
+      const matches = sourceMatches(query);
+      el.results.innerHTML = matches.length
+        ? `<p class="guide-search-hint">资料来源中找到 ${matches.length} 条相关笔记。</p>${matches.map((item) => `<article class="guide-search-result"><strong>[${escapeHtml(item.sourceId)}] ${escapeHtml(item.title)}</strong><small>${escapeHtml([...(item.cities || []), ...(item.tags || [])].join(" · "))}</small><a href="#source-${escapeHtml(item.sourceId)}">查看资料来源</a></article>`).join("")}`
+        : `<p class="guide-search-empty">资料来源中未找到“${escapeHtml(query)}”。</p>`;
+    };
+    const isMobileViewport = global.matchMedia?.("(max-width: 760px)")?.matches || Number(global.navigator?.maxTouchPoints || 0) > 0;
+    const shouldAutoFocus = options.autoFocus ?? !isMobileViewport;
+    const open = () => { el.panel.hidden = false; el.trigger.setAttribute("aria-expanded", "true"); if (!text(el.input.value)) showDefault(); if (shouldAutoFocus) el.input.focus(); };
+    const close = () => { clearTimeout(inputTimer); clearMarks(); el.panel.hidden = true; el.trigger.setAttribute("aria-expanded", "false"); el.trigger.focus(); };
+    const clear = () => { clearTimeout(inputTimer); el.input.value = ""; clearMarks(); showDefault(); el.input.focus(); };
+    if (el.advanced && !sourceIndex.length) { el.advanced.disabled = true; el.advanced.title = "本攻略未建立资料来源索引"; }
+    setNavigation();
+    showDefault();
+    el.trigger.addEventListener("click", () => el.panel.hidden ? open() : close());
+    el.close?.addEventListener("click", close); el.clear?.addEventListener("click", clear);
+    el.form.addEventListener("submit", (event) => { event.preventDefault(); clearTimeout(inputTimer); renderBody(); });
+    el.advanced?.addEventListener("click", renderSources);
+    el.input.addEventListener("input", () => { clearTimeout(inputTimer); inputTimer = global.setTimeout(renderBody, 120); });
+    el.results.addEventListener("click", (event) => { if (event.target.closest('a[href^="#source-"]')) setTimeout(close, 0); });
+    el.previous?.addEventListener("click", () => focus(current - 1)); el.next?.addEventListener("click", () => focus(current + 1));
+    root.addEventListener("keydown", (event) => {
+      const editing = /input|textarea|select/i.test(document.activeElement?.tagName || "");
+      if (event.key === "/" && !editing) { event.preventDefault(); open(); }
+      if (event.key === "Escape" && !el.panel.hidden) close();
+    });
+    return Object.freeze({ open, close, clear, search: renderBody, advancedSearch: renderSources });
+  }
+
+
+  function initToast(options = {}) {
+    const root = options.root || document;
+    const element = options.element || root.querySelector(options.selector || "#guide-toast") || (() => {
+      const node = root.createElement("div");
+      node.id = "guide-toast";
+      node.className = "guide-toast";
+      node.setAttribute("role", "status");
+      node.setAttribute("aria-live", "polite");
+      root.body.append(node);
+      return node;
+    })();
+    let timer = null;
+    return (message) => {
+      element.textContent = message;
+      element.classList.add("is-visible");
+      clearTimeout(timer);
+      timer = setTimeout(() => element.classList.remove("is-visible"), options.duration || 1600);
+    };
+  }
+
+  function fallbackCopy(value, root = document) {
+    const input = root.createElement("textarea");
+    input.value = value;
+    input.setAttribute("readonly", "");
+    input.style.cssText = "position:fixed;opacity:0;pointer-events:none";
+    root.body.append(input);
+    input.select();
+    const copied = root.execCommand?.("copy");
+    input.remove();
+    return copied;
+  }
+
+  function initCopyControls(options = {}) {
+    const root = options.root || document;
+    const selector = options.selector || "[data-copy], .copy-target";
+    const nodes = [...root.querySelectorAll(selector)];
+    if (!nodes.length) return;
+    const toast = options.toast || initToast({ root });
+    const ignored = new Set(options.ignore || []);
+    nodes.forEach((node) => {
+      if (node.dataset.copyReady === "true" || node.dataset.copyIgnore === "true") return;
+      const getValue = () => text(node.dataset.copy || node.textContent).replace(/[：:]$/, "");
+      const copy = async () => {
+        const value = getValue();
+        if (!value || ignored.has(value)) return;
+        try {
+          if (navigator.clipboard && global.isSecureContext) await navigator.clipboard.writeText(value);
+          else if (!fallbackCopy(value, root)) throw new Error("copy unavailable");
+          toast(options.successText || "已复制");
+        } catch (_error) {
+          if (fallbackCopy(value, root)) toast(options.successText || "已复制");
+          else toast(options.failureText || "复制失败，请长按复制");
+        }
+      };
+      if (!/^(button|a|input|textarea|select)$/i.test(node.tagName)) {
+        node.tabIndex = 0;
+        node.setAttribute("role", "button");
+      }
+      node.classList.add("copyable-name");
+      node.dataset.copyReady = "true";
+      node.addEventListener("click", copy);
+      node.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); copy(); }
+      });
+    });
+  }
+
+  function initChecklist(options = {}) {
+    const root = options.root || document;
+    const container = options.container || root.querySelector(options.containerSelector || "[data-checklist]");
+    if (!container) return;
+    const selector = options.selector || 'input[type="checkbox"][data-check]';
+    const scope = options.storageKey || container.dataset?.checklist || root.body?.dataset.guideId || location.pathname;
+    const editable = options.editable ?? container.dataset?.editable === "true";
+    const storage = (suffix, fallback) => {
+      const key = `travel-guide-check:${scope}:${suffix}`;
+      try { return JSON.parse(localStorage.getItem(key) || "null") ?? fallback; } catch (_error) { return fallback; }
+    };
+    const save = (suffix, value) => { try { localStorage.setItem(`travel-guide-check:${scope}:${suffix}`, JSON.stringify(value)); } catch (_error) {} };
+    const getLine = (input) => input.closest(options.itemSelector || "label,li,.check-item") || input.parentElement;
+    const getText = (line) => line?.querySelector("[data-check-label], span") || null;
+    const bind = (input) => {
+      const id = input.dataset.check || input.id;
+      if (!id || input.dataset.checkReady === "true") return;
+      const line = getLine(input);
+      const label = getText(line);
+      const stateKey = `state:${id}`;
+      const savedState = storage(stateKey, null);
+      if (savedState !== null) input.checked = savedState === true;
+      const apply = () => line?.classList.toggle("is-complete", input.checked);
+      const savedText = storage(`text:${id}`, "");
+      if (label && savedText) label.textContent = savedText;
+      apply();
+      input.dataset.checkReady = "true";
+      input.addEventListener("change", () => { apply(); save(stateKey, input.checked); });
+      if (editable && label) {
+        label.dataset.checkLabel = "true";
+        label.addEventListener("blur", () => save(`text:${id}`, text(label.textContent)), true);
+      }
+    };
+    const list = container.querySelector("[data-checklist-items]") || container;
+    const weatherCard = container.querySelector("[data-weather-card], .guide-weather-card");
+    const insertBeforeWeather = (line) => {
+      if (!weatherCard || !list.contains(weatherCard)) { list.append(line); return; }
+      let anchor = weatherCard;
+      while (anchor.parentElement && anchor.parentElement !== list) anchor = anchor.parentElement;
+      list.insertBefore(line, anchor);
+    };
+    const customItems = () => storage("custom", []);
+    const saveCustom = (items) => save("custom", items);
+    const renderCustom = (item) => {
+      const line = root.createElement("label");
+      line.className = "guide-checklist-item is-custom";
+      const input = root.createElement("input");
+      input.type = "checkbox";
+      input.dataset.check = item.id;
+      const label = root.createElement("span");
+      label.dataset.checkLabel = "true";
+      label.textContent = item.text;
+      const remove = root.createElement("button");
+      remove.type = "button";
+      remove.className = "guide-checklist-remove";
+      remove.textContent = "删除";
+      remove.setAttribute("aria-label", `删除确认项：${item.text}`);
+      remove.addEventListener("click", () => {
+        line.remove();
+        saveCustom(customItems().filter((entry) => entry.id !== item.id));
+        try {
+          localStorage.removeItem(`travel-guide-check:${scope}:state:${item.id}`);
+          localStorage.removeItem(`travel-guide-check:${scope}:text:${item.id}`);
+        } catch (_error) {}
+      });
+      line.append(input, label, remove);
+      insertBeforeWeather(line);
+      bind(input);
+    };
+    container.querySelectorAll(selector).forEach(bind);
+    if (!editable || container.dataset.checklistReady === "true") return;
+    container.dataset.checklistReady = "true";
+    customItems().filter((item) => item?.id && item?.text).forEach(renderCustom);
+    const tools = root.createElement("div");
+    tools.className = "guide-checklist-tools";
+    tools.innerHTML = '<button type="button" data-checklist-toggle>编辑清单</button><div class="guide-checklist-add"><input type="text" maxlength="120" placeholder="添加确认项"><button type="button" data-checklist-add>添加</button></div>';
+    container.prepend(tools);
+    const toggle = tools.querySelector("[data-checklist-toggle]");
+    const addBox = tools.querySelector(".guide-checklist-add");
+    const addInput = addBox.querySelector("input");
+    const add = () => {
+      const value = text(addInput.value);
+      if (!value) return;
+      const item = { id: `custom-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, text: value };
+      saveCustom([...customItems(), item]);
+      renderCustom(item);
+      addInput.value = "";
+      addInput.focus();
+    };
+    const setEditing = (active) => {
+      container.classList.toggle("is-editing", active);
+
+      toggle.textContent = active ? "完成编辑" : "编辑清单";
+      container.querySelectorAll("[data-check-label]").forEach((label) => label.contentEditable = String(active));
+    };
+    toggle.addEventListener("click", () => setEditing(!container.classList.contains("is-editing")));
+    tools.querySelector("[data-checklist-add]").addEventListener("click", add);
+    addInput.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); add(); } });
+  }
+  function initImagePreview(options = {}) {
+    const root = options.root || document;
+    const selector = options.selector || ".gallery img, [data-preview-image]";
+    const triggers = [...root.querySelectorAll(selector)];
+    if (!triggers.length) return;
+    let dialog = options.dialog || root.querySelector(options.dialogSelector || "#imageDialog");
+    if (!dialog) {
+      dialog = root.createElement("dialog");
+      dialog.className = "travel-image-dialog";
+      dialog.innerHTML = '<button type="button" aria-label="关闭图片预览">×</button><img alt="">';
+      root.body.append(dialog);
+    }
+    const image = dialog.querySelector("img");
+    const closeButton = dialog.querySelector("button");
+    if (!image || !closeButton) return;
+    let lastFocus = null;
+    const close = () => { dialog.close?.(); dialog.removeAttribute("open"); lastFocus?.focus?.(); };
+    triggers.forEach((trigger) => {
+      if (trigger.dataset.previewReady === "true") return;
+      const open = () => {
+        lastFocus = root.activeElement;
+        image.src = trigger.currentSrc || trigger.dataset.previewImage || trigger.src;
+        image.alt = trigger.alt || "图片预览";
+        if (typeof dialog.showModal === "function") dialog.showModal(); else dialog.setAttribute("open", "");
+      };
+      trigger.tabIndex = trigger.tabIndex >= 0 ? trigger.tabIndex : 0;
+      trigger.dataset.previewReady = "true";
+      trigger.addEventListener("click", open);
+      trigger.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); open(); } });
+    });
+    closeButton.addEventListener("click", close);
+    dialog.addEventListener("click", (event) => { if (event.target === dialog) close(); });
+    dialog.addEventListener("cancel", (event) => { event.preventDefault(); close(); });
+  }
+
+  function initExchange(options = {}) {
+    const root = options.root || document;
+    const card = options.card || root.querySelector(options.cardSelector || '[data-exchange-tool], .exchange-tool-card, .exchange-card');
+    if (!card) return;
+    const refreshButton = card.querySelector('[data-exchange-refresh], .exchange-refresh');
+    const status = card.querySelector('[data-exchange-status], .exchange-status');
+    const input = card.querySelector('[data-exchange-input], #exchange-amount');
+    const lastUpdated = card.querySelector('[data-exchange-last-updated]');
+    if (!refreshButton || !input) return;
+    const writeStatus = (message) => { if (status) status.textContent = message; };
+    const base = text(card.dataset.exchangeBase || options.base || 'CNY').toUpperCase();
+    const configuredTargets = Array.isArray(options.targets) ? options.targets.join(',') : (card.dataset.exchangeTargets || options.targets || '');
+    const targets = [...new Set(text(configuredTargets).split(',').map((item) => text(item).toUpperCase()).filter((item) => item && item !== base))];
+    if (!targets.length) { refreshButton.disabled = true; writeStatus('请先配置目的地货币'); return; }
+    const targetList = targets.join(',');
+    const defaultEndpoint = `https://open.er-api.com/v6/latest/${encodeURIComponent(base)}`;
+    // Frankfurter v1 is retained only for non-CNY bases; do not present it as a CNY fallback.
+    const fallbackEndpoint = base === "CNY" ? "" : `https://api.frankfurter.app/latest?from=${encodeURIComponent(base)}&to=${encodeURIComponent(targetList)}`;
+    const endpoints = [...new Set([card.dataset.exchangeEndpoint, options.endpoint, defaultEndpoint, fallbackEndpoint].filter(Boolean))];
+    const fetchImpl = options.fetchImpl || global.fetch?.bind(global);
+    let rates = null;
+    const format = (value) => Number.isFinite(value) ? new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 4 }).format(value) : '—';
+    const stamp = (date) => new Intl.DateTimeFormat('zh-CN', { dateStyle: 'short', timeStyle: 'short' }).format(date);
+    const updateRateLabels = () => {
+      targets.forEach((currency) => {
+        const node = card.querySelector(`[data-exchange-rate="${currency}"]`);
+        if (!node) return;
+        const quote = rates?.[currency];
+        node.textContent = Number.isFinite(quote) && quote > 0 ? `1 ${base} ≈ ${format(quote)} ${currency}` : '待刷新';
+      });
+    };
+    const updateResults = () => {
+      const value = Number(input.value);
+      targets.forEach((currency) => {
+        const node = card.querySelector(`[data-exchange-result="${currency}"]`);
+        if (!node) return;
+        if (!rates) { node.textContent = '请先刷新汇率'; return; }
+        if (!Number.isFinite(value) || value < 0) { node.textContent = '请输入有效金额'; return; }
+        const converted = value * Number(rates[currency]);
+        node.textContent = Number.isFinite(converted) ? `${format(converted)} ${currency}` : '暂无法换算';
+      });
+    };
+    const readRates = (payload) => {
+      if (payload?.rates && typeof payload.rates === 'object') {
+        const parsed = Object.fromEntries(Object.entries(payload.rates).map(([key, value]) => [String(key).toUpperCase(), Number(value)]));
+        parsed[base] = 1;
+        return parsed;
+      }
+      return null;
+    };
+    const request = async (endpoint) => {
+      const controller = typeof AbortController === 'function' ? new AbortController() : null;
+      const timer = controller ? global.setTimeout(() => controller.abort(), 12000) : null;
+      try {
+        const response = await fetchImpl(endpoint, { headers: { Accept: 'application/json' }, cache: 'no-store', mode: 'cors', signal: controller?.signal });
+        if (!response.ok) throw new Error(`exchange request failed: ${response.status}`);
+        const payload = await response.json();
+        const nextRates = readRates(payload);
+        if (!nextRates || targets.some((currency) => !Number.isFinite(nextRates[currency]) || nextRates[currency] <= 0)) throw new Error('exchange response incomplete');
+        return { rates: nextRates, date: payload.time_last_update_utc || payload.date || '', endpoint };
+      } finally {
+        if (timer) global.clearTimeout(timer);
+      }
+    };
+    const refresh = async () => {
+      if (!fetchImpl) { writeStatus('当前环境无法请求汇率，请稍后重试'); return; }
+      refreshButton.disabled = true;
+      card.classList.add('is-loading');
+      writeStatus('正在获取当前汇率…');
+      let result = null;
+      for (const endpoint of endpoints) {
+        try { result = await request(endpoint); break; } catch (_error) { /* try the next public source */ }
+      }
+      if (result) {
+        rates = result.rates;
+        updateRateLabels();
+        updateResults();
+        if (lastUpdated) lastUpdated.textContent = `更新时间：${stamp(new Date())}${result.date ? `；数据日期：${result.date}` : ''}`;
+        writeStatus('已更新；数据仅作中间价参考。');
+      } else {
+        updateRateLabels();
+        updateResults();
+        if (lastUpdated) lastUpdated.textContent = '更新时间：尚未获取';
+        writeStatus(global.location?.protocol === 'file:' ? '本地 file:// 可能限制跨域请求，请用本地 HTTP 打开后刷新' : '汇率接口暂时不可用，请稍后再次点击“刷新汇率”。');
+      }
+      refreshButton.disabled = false;
+      card.classList.remove('is-loading');
+    };
+    input.addEventListener('input', updateResults);
+    refreshButton.addEventListener('click', refresh);
+    updateRateLabels();
+    updateResults();
+    return { refresh, update: updateResults };
+  }
+
+  function initWeatherForecast(options = {}) {
+    const root = options.root || document;
+    const card = options.card || root.querySelector(options.cardSelector || "[data-weather-card]");
+    if (!card || card.dataset.weatherReady === "true") return;
+    const refreshButton = card.querySelector("[data-weather-refresh]");
+    const status = card.querySelector("[data-weather-status]");
+    const grid = card.querySelector("[data-weather-grid]");
+    const dataKind = card.querySelector("[data-weather-data-kind]");
+    const updatedAt = card.querySelector("[data-weather-updated-at]");
+    const easterEgg = card.querySelector("[data-rain-easter-egg]");
+    if (!refreshButton || !status || !grid) return;
+    const locations = options.locations || readJsonIndex("[data-weather-locations]", card);
+    const startDate = text(options.startDate || card.dataset.weatherStartDate);
+    const endDate = text(options.endDate || card.dataset.weatherEndDate);
+    const days = Math.min(7, Math.max(1, Number(options.days || card.dataset.weatherDays || 7)));
+    const threshold = Number(options.rainThreshold || card.dataset.rainThreshold || 80);
+    const fetchImpl = options.fetchImpl || global.fetch?.bind(global);
+    const weatherText = { 0: "晴", 1: "大致晴朗", 2: "多云", 3: "阴", 45: "雾", 48: "雾凇", 51: "毛毛雨", 53: "毛毛雨", 55: "强毛毛雨", 61: "小雨", 63: "中雨", 65: "大雨", 80: "阵雨", 81: "阵雨", 82: "强阵雨", 95: "雷暴", 96: "雷暴伴冰雹", 99: "强雷暴伴冰雹" };
+    const format = (value, digits = 0) => Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : "—";
+    const dateOnly = (date) => new Date(date + "T00:00:00");
+    const formatDate = (date) => date ? date.slice(5).replace("-", "/") : "—";
+    const localIsoDate = (date) => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
+    const addDays = (date, amount) => { const next = dateOnly(date); next.setDate(next.getDate() + amount); return localIsoDate(next); };
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const tripStart = /^\d{4}-\d{2}-\d{2}$/.test(startDate) ? dateOnly(startDate) : null;
+    const tripEnd = /^\d{4}-\d{2}-\d{2}$/.test(endDate) ? dateOnly(endDate) : (tripStart ? dateOnly(addDays(startDate, days - 1)) : null);
+    const daysUntilStart = tripStart ? Math.round((tripStart - today) / 86400000) : 0;
+    const withinForecastWindow = !tripStart || (daysUntilStart <= 7 && (!tripEnd || today <= tripEnd));
+    const enabled = options.enabled ?? (card.dataset.weatherEnabled === "true" || (card.dataset.weatherEnabled !== "false" && withinForecastWindow));
+    const tagHtml = (row) => {
+      const items = [];
+      if (row.rain >= 10 || row.hours >= 5 || /雷暴/.test(row.weather)) items.push(["室内备选", "risk"]);
+      else if (row.rain >= 3 || row.hours >= 2 || row.chance >= 50) items.push(["带雨具", "warn"]);
+      else items.push(["户外可行", "good"]);
+      if (row.gust >= 40) items.push(["船班核验", "risk"]);
+      if (row.feel >= 35 && row.uv >= 8) items.push(["高温防晒", "warn"]);
+      else if (row.uv >= 8) items.push(["防晒", "warn"]);
+      return items.map(([label, kind]) => '<span class="guide-weather-chip ' + kind + '">' + label + "</span>").join("");
+    };
+    const render = (rowsByLocation) => {
+      grid.innerHTML = locations.map((location) => {
+        const rows = rowsByLocation[location.name];
+        if (!rows) return '<article class="guide-weather-location is-error"><h4>' + escapeHtml(location.name) + "<small>" + escapeHtml(location.label || "") + '</small></h4><p class="guide-weather-location-error">该地点暂时获取失败，请稍后重试。</p></article>';
+        const body = rows.map((row) => '<tr><td>' + formatDate(row.date) + '</td><td class="weather">' + escapeHtml(row.weather) + "<br>" + format(row.min) + "–" + format(row.max) + '°C</td><td class="metric">最高约 ' + format(row.feel) + '°C</td><td class="metric">' + format(row.rain, 1) + " mm · " + format(row.hours) + " 小时<br>降雨 " + format(row.chance) + '%</td><td class="metric">' + format(row.gust) + " km/h · UV " + format(row.uv) + "<br>日落 " + escapeHtml(row.sunset || "待核验") + '</td><td class="key">' + tagHtml(row) + "</td></tr>").join("");
+        return '<article class="guide-weather-location"><h4>' + escapeHtml(location.name) + "<small>" + escapeHtml(location.label || "") + '</small></h4><div class="guide-weather-table-wrap"><table class="guide-weather-table"><thead><tr><th>日期</th><th>天气 / 温度</th><th>体感</th><th>雨量 / 雨时</th><th>阵风 / UV / 日落</th><th>关键提示</th></tr></thead><tbody>' + body + "</tbody></table></div></article>";
+      }).join("");
+      if (easterEgg) easterEgg.hidden = !Object.values(rowsByLocation).some((rows) => rows?.some((row) => Number(row.chance) >= threshold));
+    };
+    const requestLocation = async (location) => {
+      if (!fetchImpl) throw new Error("fetch unavailable");
+      const todayIso = localIsoDate(new Date());
+      const queryStart = tripStart && today > tripStart ? todayIso : (startDate || todayIso);
+      const plannedEnd = addDays(queryStart, days - 1);
+      const queryEnd = tripEnd && dateOnly(plannedEnd) > tripEnd ? localIsoDate(tripEnd) : plannedEnd;
+      const url = new URL("https://api.open-meteo.com/v1/forecast");
+      url.search = new URLSearchParams({
+        latitude: location.latitude, longitude: location.longitude,
+        daily: "weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,precipitation_sum,precipitation_hours,precipitation_probability_max,wind_gusts_10m_max,uv_index_max,sunset",
+        timezone: location.timezone || options.timezone || "auto", start_date: queryStart, end_date: queryEnd
+      });
+      const controller = typeof AbortController === "function" ? new AbortController() : null;
+      const timer = controller ? global.setTimeout(() => controller.abort(), 12000) : null;
+      let response;
+      try { response = await fetchImpl(url, { cache: "no-store", headers: { Accept: "application/json" }, signal: controller?.signal }); }
+      finally { if (timer) global.clearTimeout(timer); }
+      if (!response.ok) throw new Error(location.name + " weather request failed");
+      const daily = (await response.json()).daily;
+      if (!daily?.time?.length) throw new Error(location.name + " weather response empty");
+      return [location.name, daily.time.map((date, index) => ({
+        date, weather: weatherText[daily.weather_code[index]] || "待核验",
+        min: daily.temperature_2m_min[index], max: daily.temperature_2m_max[index], feel: daily.apparent_temperature_max[index],
+        rain: daily.precipitation_sum[index] || 0, hours: daily.precipitation_hours[index] || 0,
+        chance: daily.precipitation_probability_max[index] || 0, gust: daily.wind_gusts_10m_max[index] || 0,
+        uv: daily.uv_index_max[index] || 0, sunset: (daily.sunset[index] || "").slice(11, 16)
+      }))];
+    };
+    const refresh = async () => {
+      refreshButton.disabled = true;
+      card.classList.add("is-loading");
+      refreshButton.textContent = "正在刷新…";
+      status.textContent = "正在获取 " + locations.map((item) => item.name).join("、") + " 的体感、雨量、阵风、UV 与日落…";
+      try {
+        if (!locations.length) throw new Error("weather locations missing");
+        const settled = await Promise.allSettled(locations.map(requestLocation));
+        const successes = settled.filter((result) => result.status === "fulfilled").map((result) => result.value);
+        if (!successes.length) throw new Error("all weather requests failed");
+        const rows = Object.fromEntries(successes);
+        const failedCount = settled.length - successes.length;
+        render(rows);
+        if (dataKind) { dataKind.textContent = failedCount ? "部分刷新成功" : "已刷新：Open‑Meteo 预报"; dataKind.classList.remove("is-waiting"); }
+        status.textContent = failedCount
+          ? "已显示 " + successes.length + " 个地点，" + failedCount + " 个地点暂时获取失败；官方公告优先。"
+          : "天气已刷新。关键标签用于快速调整节奏；灾害预警、海况、道路及交通仍以官方公告为准。";
+        if (updatedAt) updatedAt.innerHTML = "<strong>更新时间：</strong>" + new Intl.DateTimeFormat("zh-CN", { dateStyle: "short", timeStyle: "short" }).format(new Date());
+      } catch (_error) {
+        status.textContent = global.location?.protocol === "file:" ? "本地 file:// 可能限制天气请求，请用本地 HTTP 打开后重试；正文不受影响。" : "暂无法获取天气，请稍后重试，并以官方公告为准。";
+      } finally {
+        refreshButton.disabled = false;
+        card.classList.remove("is-loading");
+        refreshButton.textContent = "刷新天气";
+      }
+    };
+    const modal = card.querySelector("[data-rain-prayer-modal]");
+    const frame = card.querySelector("[data-rain-prayer-frame]");
+    const closeButton = card.querySelector("[data-rain-prayer-close]");
+    const openButton = card.querySelector("[data-rain-prayer-open]");
+    const prayerSource = readJsonIndex("[data-rain-prayer-source]", card);
+    const closePrayer = () => { if (!modal || !frame) return; modal.hidden = true; frame.srcdoc = ""; root.body.style.overflow = ""; };
+    openButton?.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (!modal || !frame || typeof prayerSource !== "string") return;
+      closeButton.hidden = true;
+      frame.srcdoc = prayerSource;
+      modal.hidden = false;
+      root.body.style.overflow = "hidden";
+    });
+    closeButton?.addEventListener("click", closePrayer);
+    global.addEventListener("message", (event) => {
+      if (frame && event.source === frame.contentWindow && event.data?.type === "rain-prayer-complete") closeButton.hidden = false;
+    });
+    card.dataset.weatherReady = "true";
+    refreshButton.disabled = !enabled;
+    refreshButton.textContent = enabled ? "刷新天气" : "T-7 开启";
+    refreshButton.title = enabled ? "手动刷新天气" : "将在行程开始前 7 天开放天气刷新";
+    refreshButton.setAttribute("aria-label", refreshButton.title);
+
+    if (!enabled && dataKind) dataKind.textContent = "预测窗口尚未开启";
+    status.textContent = enabled ? "点击“刷新天气”后才请求 Open‑Meteo；页面首次加载不自动联网。" : options.disabledText || "预测窗口尚未开启；将在行程开始前 7 天开放刷新。";
+    refreshButton.addEventListener("click", refresh);
+    return { refresh, render };
+  }
+  function initQuickNav(options = {}) {
+    const root = options.root || document;
+    const nav = options.nav || root.querySelector(options.selector || "[data-quick-nav], .quick-nav");
+    if (!nav || nav.dataset.quickNavReady === "true") return;
+    const sectionSelector = options.sectionSelector || "[data-nav-label][id]";
+    const sections = [...root.querySelectorAll(sectionSelector)].filter((section) => !section.hidden && section.dataset.navHidden !== "true");
+    const autoBuild = nav.hasAttribute("data-quick-nav") && nav.dataset.navManual !== "true";
+    if (autoBuild) {
+      const fragment = document.createDocumentFragment();
+      sections.forEach((section) => {
+        const label = text(section.dataset.navLabel);
+        if (!label) return;
+        const link = document.createElement("a");
+        link.href = "#" + encodeURIComponent(section.id);
+        link.textContent = label;
+        fragment.append(link);
+      });
+      nav.replaceChildren(fragment);
+    }
+    const targetFor = (link) => {
+      const id = decodeURIComponent((link.getAttribute("href") || "").slice(1));
+      return id ? document.getElementById(id) : null;
+    };
+    const pairs = [...nav.querySelectorAll('a[href^="#"]')].map((link) => ({ link, target: targetFor(link) })).filter((item) => item.target);
+    if (!pairs.length) { nav.hidden = true; return; }
+    nav.hidden = false;
+    nav.dataset.quickNavReady = "true";
+    const reduceMotion = global.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true;
+    const itineraryPair = pairs.find((item) => item.target.matches?.('[data-guide-module="itinerary"]') || item.target.querySelector?.('.day[id]'));
+    let itineraryCycle = null;
+    if (itineraryPair) {
+      const days = [...itineraryPair.target.querySelectorAll('.day[id]')];
+      if (days.length) {
+        const link = itineraryPair.link;
+        const originalLabel = text(link.textContent) || "逐日行程";
+        const initialWidth = Math.ceil(link.getBoundingClientRect().width) || 76;
+        const track = document.createElement("span");
+        track.className = "guide-itinerary-cycle__track";
+        track.textContent = originalLabel;
+        link.replaceChildren(track);
+        link.classList.add("guide-itinerary-cycle");
+        link.style.setProperty("--guide-itinerary-cycle-width", initialWidth + "px");
+        link.setAttribute("aria-label", "按日期浏览逐日行程；长按选择日期");
+        link.setAttribute("aria-haspopup", "menu");
+        link.setAttribute("aria-expanded", "false");
+        let nextIndex = 0;
+        let labelVersion = 0;
+        let selectedIndex = -1;
+        let pressTimer = null;
+        let pressStart = null;
+        let suppressNextClick = false;
+        const dateFor = (day) => {
+          const dateNode = day.querySelector(".date");
+          if (!dateNode) return "";
+          const clone = dateNode.cloneNode(true);
+          clone.querySelectorAll("small").forEach((node) => node.remove());
+          return text(clone.textContent).replace(/日$/, "");
+        };
+        const restoreLabel = (version) => {
+          if (version !== labelVersion) return;
+          track.classList.remove("is-running", "is-final-cycle");
+          track.textContent = originalLabel;
+          track.style.removeProperty("--guide-itinerary-marquee-shift");
+          link.setAttribute("aria-label", "按日期浏览逐日行程；长按选择日期");
+        link.setAttribute("aria-haspopup", "menu");
+        link.setAttribute("aria-expanded", "false");
+        };
+        const showLabel = (label, restoreAfter) => {
+          const version = ++labelVersion;
+          track.classList.remove("is-running", "is-final-cycle");
+          track.textContent = label;
+          link.setAttribute("aria-label", "当前提示：" + label);
+          void track.offsetWidth;
+          const style = global.getComputedStyle?.(link);
+          const available = Math.max(1, link.clientWidth - (Number.parseFloat(style?.paddingLeft) || 0) - (Number.parseFloat(style?.paddingRight) || 0));
+          const distance = Math.max(0, Math.ceil(track.scrollWidth - available));
+          track.style.setProperty("--guide-itinerary-marquee-shift", -distance + "px");
+          if (!reduceMotion && distance > 0) {
+            if (restoreAfter) track.classList.add("is-final-cycle");
+            track.classList.add("is-running");
+            if (restoreAfter) track.addEventListener("animationend", () => restoreLabel(version), { once: true });
+          } else if (restoreAfter) global.setTimeout(() => restoreLabel(version), reduceMotion ? 900 : 1400);
+        };
+        const menu = document.createElement("div");
+        menu.id = "guide-itinerary-date-menu";
+        menu.className = "guide-itinerary-date-menu";
+        menu.setAttribute("role", "menu");
+        menu.setAttribute("aria-label", "选择行程日期");
+        menu.hidden = true;
+        (root.body || document.body).append(menu);
+        days.forEach((day, index) => {
+          const button = document.createElement("button");
+          const date = dateFor(day);
+          button.type = "button";
+          button.className = "guide-itinerary-date-option";
+          button.dataset.dayIndex = String(index);
+          button.setAttribute("role", "menuitem");
+          button.textContent = date ? (date.includes("月") ? date + "日" : date) : "第" + (index + 1) + "天";
+          menu.append(button);
+        });
+        const menuButtons = [...menu.querySelectorAll(".guide-itinerary-date-option")];
+        const updateMenu = () => {
+          menuButtons.forEach((button, index) => {
+            const selected = index === selectedIndex;
+            button.classList.toggle("is-current", selected);
+            if (selected) button.setAttribute("aria-current", "date");
+            else button.removeAttribute("aria-current");
+          });
+        };
+        const positionMenu = () => {
+          const rect = link.getBoundingClientRect();
+          const viewportWidth = document.documentElement.clientWidth;
+          const viewportHeight = document.documentElement.clientHeight;
+          const width = Math.min(224, viewportWidth - 24);
+          menu.style.width = width + "px";
+          menu.style.left = Math.min(Math.max(12, rect.left), viewportWidth - width - 12) + "px";
+          menu.style.top = Math.max(12, Math.min(rect.bottom + 8, viewportHeight - Math.min(menu.scrollHeight || 320, 360) - 12)) + "px";
+        };
+        const closeMenu = (focusLink = false) => {
+          if (menu.hidden) return;
+          menu.hidden = true;
+          link.classList.remove("is-long-press-open");
+          link.setAttribute("aria-expanded", "false");
+          if (focusLink) link.focus({ preventScroll: true });
+        };
+        const openMenu = (focusMenu = false) => {
+          restoreLabel(++labelVersion);
+          updateMenu();
+          menu.hidden = false;
+          link.classList.add("is-long-press-open");
+          link.setAttribute("aria-expanded", "true");
+          positionMenu();
+          if (focusMenu) (menuButtons[selectedIndex >= 0 ? selectedIndex : nextIndex] || menuButtons[0])?.focus();
+        };
+        const clearPress = () => {
+          if (pressTimer !== null) global.clearTimeout(pressTimer);
+          pressTimer = null;
+          pressStart = null;
+          link.classList.remove("is-pressing");
+        };
+        const startPress = (event) => {
+          if (event.pointerType === "mouse" && event.button !== 0) return;
+          clearPress();
+          suppressNextClick = false;
+          pressStart = { x: event.clientX, y: event.clientY };
+          link.classList.add("is-pressing");
+          pressTimer = global.setTimeout(() => {
+            pressTimer = null;
+            suppressNextClick = true;
+            link.classList.remove("is-pressing");
+            openMenu(false);
+          }, 550);
+        };
+        const movePress = (event) => {
+          if (pressStart && Math.hypot(event.clientX - pressStart.x, event.clientY - pressStart.y) > 8) clearPress();
+        };
+        const consumeSuppressedClick = () => {
+          if (!suppressNextClick) return false;
+          suppressNextClick = false;
+          return true;
+        };
+        const onLinkClickCapture = (event) => {
+          if (!suppressNextClick) return;
+          suppressNextClick = false;
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+        };
+        const onDocumentPointerDown = (event) => {
+          if (!menu.hidden && !menu.contains(event.target) && !link.contains(event.target)) closeMenu();
+        };
+        const onDocumentKeyDown = (event) => {
+          if (event.key === "Escape" && !menu.hidden) {
+            event.preventDefault();
+            closeMenu(true);
+          }
+        };
+        const onViewportChange = () => { if (!menu.hidden) positionMenu(); };
+        link.addEventListener("click", onLinkClickCapture, true);
+        link.addEventListener("pointerdown", startPress);
+        link.addEventListener("pointermove", movePress);
+        link.addEventListener("pointerup", clearPress);
+        link.addEventListener("pointercancel", clearPress);
+        link.addEventListener("pointerleave", (event) => { if (event.pointerType === "mouse") clearPress(); });
+        link.addEventListener("contextmenu", (event) => {
+          event.preventDefault();
+          suppressNextClick = true;
+          openMenu(false);
+        });
+        link.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowDown") {
+            event.preventDefault();
+            openMenu(true);
+          }
+        });
+        menu.addEventListener("click", (event) => {
+          const button = event.target.closest("[data-day-index]");
+          if (!button) return;
+          nextIndex = Number(button.dataset.dayIndex);
+          jump();
+        });
+        menu.addEventListener("keydown", (event) => {
+          const index = menuButtons.indexOf(document.activeElement);
+          let next = index;
+          if (event.key === "ArrowDown") next = Math.min(menuButtons.length - 1, index + 1);
+          else if (event.key === "ArrowUp") next = Math.max(0, index - 1);
+          else if (event.key === "Home") next = 0;
+          else if (event.key === "End") next = menuButtons.length - 1;
+          else return;
+          event.preventDefault();
+          menuButtons[next]?.focus();
+        });
+        document.addEventListener("pointerdown", onDocumentPointerDown, true);
+        document.addEventListener("keydown", onDocumentKeyDown);
+        global.addEventListener("scroll", onViewportChange, { passive: true });
+        global.addEventListener("resize", onViewportChange);
+        const destroyLongPress = () => {
+          clearPress();
+          link.removeEventListener("click", onLinkClickCapture, true);
+          document.removeEventListener("pointerdown", onDocumentPointerDown, true);
+          document.removeEventListener("keydown", onDocumentKeyDown);
+          global.removeEventListener("scroll", onViewportChange);
+          global.removeEventListener("resize", onViewportChange);
+          menu.remove();
+        };
+        const jump = () => {
+          const index = nextIndex;
+          const day = days[index];
+          const date = dateFor(day) || "第" + (index + 1) + "天";
+          const isLast = index === days.length - 1;
+          selectedIndex = index;
+          updateMenu();
+          closeMenu();
+          showLabel(date + "逐日行程", isLast);
+          activate(itineraryPair.target);
+          day.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+          nextIndex = isLast ? 0 : index + 1;
+        };
+        const reset = () => {
+          nextIndex = 0;
+          selectedIndex = -1;
+          closeMenu();
+          updateMenu();
+          restoreLabel(++labelVersion);
+        };
+        itineraryCycle = { link, jump, reset, closeMenu, consumeSuppressedClick, destroy: destroyLongPress };
+      }
+    }
+    let activeTarget = null;
+    let scheduled = null;
+    const clock = () => global.performance?.now?.() || Date.now();
+    let pointerGesture = null;
+    let suppressPointerClickUntil = 0;
+    let manualNavUntil = 0;
+    let autoRevealUntil = 0;
+    let lastPointerLink = null;
+    let lastPointerClickAt = 0;
+    const onNavPointerDown = (event) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      pointerGesture = { id: event.pointerId, x: event.clientX, y: event.clientY, dragged: false };
+    };
+    const onNavPointerMove = (event) => {
+      if (!pointerGesture || pointerGesture.id !== event.pointerId) return;
+      const dx = Math.abs(event.clientX - pointerGesture.x);
+      const dy = Math.abs(event.clientY - pointerGesture.y);
+      if (dx > 8 && dx > dy) {
+        pointerGesture.dragged = true;
+        suppressPointerClickUntil = clock() + 450;
+        manualNavUntil = clock() + 300;
+      }
+    };
+    const finishNavPointer = () => {
+      if (pointerGesture?.dragged) {
+        suppressPointerClickUntil = clock() + 450;
+        manualNavUntil = clock() + 300;
+      }
+      pointerGesture = null;
+    };
+    const onNavClickCapture = (event) => {
+      const link = event.target.closest?.('a[href^="#"]');
+      if (!link || !nav.contains(link)) return;
+      const time = clock();
+      const repeatedPointerClick = event.detail > 0 && lastPointerLink === link && time - lastPointerClickAt < 320;
+      if (time < suppressPointerClickUntil || repeatedPointerClick) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        return;
+      }
+      if (event.detail > 0) { lastPointerLink = link; lastPointerClickAt = time; }
+    };
+    const onNavWheel = () => { manualNavUntil = clock() + 300; };
+    const onNavScroll = () => { if (clock() >= autoRevealUntil) manualNavUntil = clock() + 300; };
+    const reveal = (link) => {
+      if (pointerGesture?.dragged || clock() < manualNavUntil) return;
+      const left = Math.max(0, link.offsetLeft - (nav.clientWidth - link.offsetWidth) / 2);
+      autoRevealUntil = clock() + 700;
+      if (typeof nav.scrollTo === "function") nav.scrollTo({ left, behavior: reduceMotion ? "auto" : "smooth" });
+      else nav.scrollLeft = left;
+    };
+    const activate = (target, revealLink = true) => {
+      if (!target || activeTarget === target) return;
+      activeTarget = target;
+      pairs.forEach((item) => {
+        const active = item.target === target;
+        item.link.classList.toggle("is-active", active);
+        if (active) {
+          item.link.setAttribute("aria-current", "location");
+          if (revealLink) reveal(item.link);
+        } else item.link.removeAttribute("aria-current");
+      });
+    };
+    const updateOffset = () => {
+      const top = Number.parseFloat(global.getComputedStyle?.(nav).top) || 0;
+      const offset = Math.ceil(nav.getBoundingClientRect().height + top + 12);
+      document.documentElement.style.setProperty("--guide-nav-offset", offset + "px");
+    };
+    const selectCurrent = () => {
+      scheduled = null;
+      const top = Number.parseFloat(global.getComputedStyle?.(nav).top) || 0;
+      const activationLine = top + nav.getBoundingClientRect().height + 16;
+      let current = pairs[0];
+      pairs.forEach((item) => { if (item.target.getBoundingClientRect().top <= activationLine) current = item; });
+      activate(current.target);
+    };
+    const schedule = () => {
+      if (scheduled !== null) return;
+      scheduled = global.requestAnimationFrame ? global.requestAnimationFrame(selectCurrent) : global.setTimeout(selectCurrent, 16);
+    };
+    const onHashChange = () => {
+      const id = decodeURIComponent(global.location.hash.slice(1));
+      const pair = pairs.find((item) => item.target.id === id);
+      if (pair) activate(pair.target);
+      else schedule();
+    };
+    const onClick = (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link || !nav.contains(link)) return;
+      if (itineraryCycle?.link === link) {
+        event.preventDefault();
+        if (itineraryCycle.consumeSuppressedClick?.()) return;
+        itineraryCycle.jump();
+        return;
+      }
+      itineraryCycle?.reset();
+      const pair = pairs.find((item) => item.link === link);
+      if (pair) activate(pair.target);
+    };
+    nav.addEventListener("click", onNavClickCapture, true);
+    nav.addEventListener("click", onClick);
+    nav.addEventListener("pointerdown", onNavPointerDown);
+    nav.addEventListener("pointermove", onNavPointerMove);
+    nav.addEventListener("pointerup", finishNavPointer);
+    nav.addEventListener("pointercancel", finishNavPointer);
+    nav.addEventListener("wheel", onNavWheel, { passive: true });
+    nav.addEventListener("scroll", onNavScroll, { passive: true });
+    global.addEventListener("scroll", schedule, { passive: true });
+    global.addEventListener("resize", schedule);
+    global.addEventListener("hashchange", onHashChange);
+    const resizeObserver = global.ResizeObserver ? new global.ResizeObserver(() => { updateOffset(); schedule(); }) : null;
+    resizeObserver?.observe(nav);
+    updateOffset();
+    onHashChange();
+    schedule();
+    return () => {
+      nav.removeEventListener("click", onNavClickCapture, true);
+      nav.removeEventListener("click", onClick);
+      nav.removeEventListener("pointerdown", onNavPointerDown);
+      nav.removeEventListener("pointermove", onNavPointerMove);
+      nav.removeEventListener("pointerup", finishNavPointer);
+      nav.removeEventListener("pointercancel", finishNavPointer);
+      nav.removeEventListener("wheel", onNavWheel);
+      nav.removeEventListener("scroll", onNavScroll);
+      global.removeEventListener("scroll", schedule);
+      global.removeEventListener("resize", schedule);
+      global.removeEventListener("hashchange", onHashChange);
+      resizeObserver?.disconnect();
+      itineraryCycle?.destroy?.();
+      if (scheduled !== null) { if (global.cancelAnimationFrame) global.cancelAnimationFrame(scheduled); else global.clearTimeout(scheduled); }
+    };
+  }
+
+  function initItineraryExplorer(options = {}) {
+    const root = options.root || document;
+    const days = [...root.querySelectorAll(options.daySelector || ".day[data-kind]")];
+    const filters = [...root.querySelectorAll(options.filterSelector || "[data-filter]")];
+    if (!days.length || !filters.length) return;
+    const select = (day) => {
+      days.forEach((item) => item.classList.toggle("is-selected", item === day));
+      const title = root.querySelector(options.titleSelector || "#detail-title");
+      const detail = root.querySelector(options.detailSelector || "#detailText");
+      if (title) title.textContent = day.dataset.title || "";
+      if (detail) detail.textContent = day.dataset.risk || "";
+    };
+    days.forEach((day) => day.addEventListener("click", () => select(day)));
+    filters.forEach((filter) => filter.addEventListener("click", () => {
+      const kind = filter.dataset.filter;
+      filters.forEach((item) => item.setAttribute("aria-pressed", String(item === filter)));
+      days.forEach((day) => { day.hidden = kind !== "all" && day.dataset.kind !== kind; });
+      const first = days.find((day) => !day.hidden);
+      if (first) select(first);
+    }));
+    select(days[0]);
+  }
+  function initGuidePage(options = {}) {
+    const root = options.root || document;
+    const active = {};
+    if (options.sources !== false) active.sources = initSourceLinks({ root, ...(options.sourceOptions || {}) });
+    if (options.search !== false) active.search = initSearch({ root, ...(options.searchOptions || {}) });
+    if (options.copy !== false) active.copy = initCopyControls({ root, ...(options.copyOptions || {}) });
+    if (options.checklist !== false) active.checklist = initChecklist({ root, editable: true, ...(options.checklistOptions || {}) });
+    if (options.preview !== false) active.preview = initImagePreview({ root, ...(options.previewOptions || {}) });
+    if (options.navigation !== false) active.navigation = initQuickNav({ root, ...(options.navigationOptions || {}) });
+    if (options.exchange) active.exchange = initExchange({ root, ...(options.exchange === true ? {} : options.exchange) });
+    if (options.weather) active.weather = initWeatherForecast({ root, ...(options.weather === true ? {} : options.weather) });
+    if (options.itinerary) active.itinerary = initItineraryExplorer({ root, ...(options.itinerary === true ? {} : options.itinerary) });
+    return active;
+  }
+  global.TravelGuideInteractions = Object.freeze({ initSourceLinks, initSearch, initToast, initCopyControls, initChecklist, initImagePreview, initExchange, initWeatherForecast, initQuickNav, initItineraryExplorer, initGuidePage, readJsonIndex });
+})(window);
+
+</script><script>TravelGuideInteractions.initGuidePage({exchange:true,weather:true,itinerary:true});</script></body></html>
